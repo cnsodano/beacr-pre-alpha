@@ -1,0 +1,103 @@
+---
+title: "Hash Functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Hash Functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r setup, include=FALSE}
+library(beacr)
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  tidy = TRUE,
+  tidy.opts = list(width.cutoff = 80)
+)
+```
+
+`beacr` uses Secure Hash Algorithm (SHA) functions to verify that external preregistration files have not been tampered with. This family of functions offer certain desirable security guarantees, the most important one for this context being **preimage resistance** which is a property defined by the U.S. [National Institute of Standards and Technology](https://csrc.nist.gov/projects/hash-functions) as: **"Given a randomly chosen hash value, it is computationally infeasible to find an input message that hashes to this hash value."**
+
+This means that once a preregistration file (the input message) is published and the hash is recorded (namely, by mixing it in with the seed pulse) there is practically no way one could change the content of the file they use as a preregistration and still have that new file produce the same recorded hash.^1^ As a result, any attempt after-the-fact to change the file, even by a small amount, will result in a different seed produced by `beacr`.
+
+For example, given the 'preregistration' statement, of "There will be a significant effect of x on y", one may want to retroactively change their registration to make their original hypothesis seem to fit with the results of the experiment. In this case, the 'small change' would be adding the word 'not'
+
+```{r}
+# Hashing a toy example preregistration
+openssl::sha256("There will be a significant effect of x on y")
+```
+
+Compared to:
+```{r}
+# Changing the content even slightly results in a completely different output
+openssl::sha256("There will not a significant effect of x on y")
+```
+
+Another consequence of this is that despite concatenating user-defined input (the preregistration) with the random beacon output, we need not worry about the preregistration influencing the resulting random number.
+
+For example, using a toy example where the beacon produces only a single bit of randomness and the rest of the input is completely determined by our preregistration:
+```{r}
+# Hashing a toy example preregistration
+preregistration = openssl::sha256(
+  "I am very interested in manipulating the output to result in a seed I desire"
+)
+
+# The toy case where the preregistration has the MOST opportunity for 
+# influence possible; there is only a single bit that is NOT pre-determined
+dummy_pulse1 = as.raw(0) 
+
+# Custom helper converts datatypes to raw before concatenating to avoid 
+# coercion
+concatenated = c(
+  beacr:::.hex_str_to_raw(preregistration, bits = 256),
+  dummy_pulse1
+)
+
+resulting_seed = openssl::sha512(concatenated)
+resulting_seed
+```
+
+Note that when the single bit of randomness offered by the dummy pulse changes, we get a completely different outcome
+
+```{r}
+# When changing a single bit (flipping the dummy pulse from 0 to 1)
+dummy_pulse2 = as.raw(1) 
+
+# Custom helper converts datatypes to raw before concatenating to avoid
+# coercion
+concatenated = c(
+  beacr:::.hex_str_to_raw(preregistration, bits = 256),
+  dummy_pulse2
+)
+
+resulting_seed = openssl::sha512(concatenated)
+resulting_seed
+```
+
+In practice, the difference between two pulses is much larger than a single bit (for the NISTBeacon, the random number generated contains 512 bits). Despite knowing the first 256 bits of our input into the hash function, the next 512 bits (from the Beacon) results in an unbiased outcome. 
+
+<details>
+<summary> A note on rigor </summary>
+_This has been a very non-rigorous explanation, namely while a small difference in input can result in a large different in output, I did not show that any differences in output are not **correlated** with the change in input. This is beyond the scope of this package, as I assume and hope you are using `beacr` to generate a single seed for a Pseudo-Random Number Generator (PRNG), instead of using it as a PRNG itself. After seeding the PRNG with a random number from `beacr` (which is computationally infeasible to 'game'), you should rely on the statistical properties of your PRNG algorithm to ensure the initial preregistration has no influence over the sequence of random numbers used in the analysis thereafter._
+</details>
+
+## How the preregistration is mixed with the Beacon pulse
+The formula for determining the seed produced when a preregistration file is provided is:
+
+`seed = HASH_512( HASH_256(preregistration) || BEACON_512 )`
+
+_where `||` means concatenation of the binary values, not bitwise `OR`_
+<br>
+_where BEACON_512 is the 512 bit output of the beacon_
+<br>
+_where HASH_xxx is the SHA-family hash function_
+
+
+
+
+<br>
+<br>
+
+#### Notes
+1. Even if you somehow use brute force to find another input that hashes to the same hash value as your original preregistration, even then it is extraordinarily unlikely that that new input would be intelligible in the language of the original preregistration.
+

@@ -1,0 +1,14 @@
+{"beacons_table": {
+    "description": "Descriptive information about different randomness beacons available in this pacakge. Each beacon key corresponds to a named R6 class implementing the functionality for that beacon. Global options of 'current_beacon' and 'default_beacon' will be strings representing which key in this json object the currently selected/default beacon corresponds to. For example, 'default_beacon: NISTBeacon' means the default beacon is set to the NIST Interoperable Randomness Beacon v2.0, and the implementation details for the randomness methods can be found in /R/NISTBeacon.R",
+    "NISTBeacon": {
+        "name": "NIST Interoperable Randomness Beacon",
+        "version": "2.0",
+        "api_base_url": "https://beacon.nist.gov/beacon/2.0/",
+        "schema_url": "https://csrc.nist.gov/csrc/media/Projects/interoperable-randomness-beacons/documents/certificate/beacon-2.0.xsd",
+        "schema_package_local_path": "inst/extdata/beacon_schemas/NIST_v_2-0_schema.xsd",
+        "hash_algorithm": "SHA512",
+        "period": 60,
+        "notes": "period is measured in seconds."
+    }
+}
+}

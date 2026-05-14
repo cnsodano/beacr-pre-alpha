@@ -1,0 +1,20 @@
+{
+    "default_beacon": "NISTBeacon",
+    "default_hash_library": "openssl",
+    "data_dir_location": "working_directory",
+    "enforce_preregistration": false,
+    "treat_warnings_as_errors": false,
+    "log_dir_location": "working_directory",
+    "hash_libraries":{
+        "openssl":{
+            "SHA512":{
+                "function_name":"sha512",
+                "hash_length_bits":512,
+                "hash_length_bytes":64
+            }
+        } 
+    },
+    "log_level": "DEBUG",
+    "log_appender_type": "file",
+    "strictness": 0
+}

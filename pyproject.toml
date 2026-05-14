@@ -1,0 +1,20 @@
+[project]
+name = "randomnessbeacon"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "scriv>=1.8.0",
+]
+
+[tool.uv.sources]
+scriv = { git = "https://github.com/cnsodano/scriv", rev = "main" }
+
+[tool.scriv]
+format = "md"
+changelog="CHANGELOG.md"
+fragment_directory = "changelog_fragments"
+entry_title_template = "file: changelog_fragments/changelogtitle.md.j2"
+new_fragment_template = "file: changelog_fragments/fragment_template.md.j2"
+main_branches = [] # I want to see 'main' in entry if changes made on main

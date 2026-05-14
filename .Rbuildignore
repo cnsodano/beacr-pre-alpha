@@ -1,0 +1,12 @@
+^beacr\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^.R_libs$
+^.linenotes$
+^todo.md$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^vignettes/\.quarto$
+^vignettes/*_files$
+^archive/$

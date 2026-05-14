@@ -1,0 +1,45 @@
+url: ~
+template:
+  bootstrap: 5
+  includes:
+    in_header: <link rel="stylesheet" type="text/css" href="pkgdown/extra.css" />
+  light-switch: true
+  bslib:
+    bootswatch: cosmo
+    fg: "#3d5a80"
+    bg: "#f9f5ff"
+    white: "#f9f5ff"
+    black: "#3d5a80"
+    primary: "#3d5a80"
+
+
+
+reference:
+  - title: "Core Functions"
+    desc: "Primary functions for doing the main thing"
+  - contents:
+      - get_seed
+      - reset_seed_log
+      # - -starts_with("\\.")
+  - title: "Beacons"
+    desc: "Currently available Beacon implementations"
+  - contents:
+    - BeaconInterface
+    - NISTBeacon
+  - title: "Public Utilities"
+    desc: "Utilities that may be useful for everyday use of the package, not only for developers"
+  - contents:
+      - read_logs
+      - verify_log
+  - title: "Internal"
+    desc: "Internal functions for developers"
+  - contents:
+      - has_keyword("internal")
+  - title: "All Non-Public Utilities"
+    desc: "All functions used that are not designated as public-facing (i.e. anything prepended with a .)"
+  - contents:
+     - starts_with("\\.")
+  - title: "All internal & external names alphabetically"
+  - contents:
+    - matches(".")
+

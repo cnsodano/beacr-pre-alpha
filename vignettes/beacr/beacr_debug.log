@@ -1,0 +1,46 @@
+INFO [2026-05-13 15:08:01] || .inform || strictness:0 || <message/rlang_message>
+Message:
+beacr: Creating debug log folder at: C:/Users/cnsodano/Documents/Projects/randomnessbeacon/vignettes/beacr
+Calling rlang::inform...
+
+
+namespace: beacr || Log signal type: INFO 
+[2026-05-13 15:08:01]: || .inform || strictness:0 || <message/rlang_message>
+Message:
+beacr: Seed log default location is: C:/Users/cnsodano/Documents/Projects/randomnessbeacon/vignettes/beacr
+Calling rlang::inform...
+
+
+INFO [2026-05-13 15:21:53] || .inform || strictness:0 || <message/rlang_message>
+Message:
+beacr: Debug logs are being written to: C:/Users/cnsodano/Documents/Projects/randomnessbeacon/vignettes/beacr
+Calling rlang::inform...
+
+
+namespace: beacr || Log signal type: INFO 
+[2026-05-13 15:21:53]: || .inform || strictness:0 || <message/rlang_message>
+Message:
+beacr: Seed log default location is: C:/Users/cnsodano/Documents/Projects/randomnessbeacon/vignettes/beacr
+Calling rlang::inform...
+
+
+INFO [2026-05-14 14:31:57] || .inform || strictness:0 || <message/rlang_message>
+Message:
+beacr: Debug logs are being written to: C:/Users/cnsodano/Documents/Projects/randomnessbeacon/vignettes/beacr
+Calling rlang::inform...
+
+
+namespace: beacr || Log signal type: INFO 
+[2026-05-14 14:31:57]: || .inform || strictness:0 || <message/rlang_message>
+Message:
+beacr: Seed log default location is: C:/Users/cnsodano/Documents/Projects/randomnessbeacon/vignettes/beacr
+Calling rlang::inform...
+
+
+namespace: beacr || Log signal type: INFO 
+[2026-05-14 14:31:57]: || .inform || strictness:0 || <message/rlang_message>
+Message:
+beacr fully loaded!
+Calling rlang::inform...
+
+

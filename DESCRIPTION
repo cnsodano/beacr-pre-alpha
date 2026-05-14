@@ -1,0 +1,31 @@
+Package: beacr
+Title: Use truly random publicly auditable seeds 
+Version: 0.0.0.9000
+Authors@R: 
+    person("Christian", "Sodano","N", "cnsodano@gmail.com", role = c("aut", "cre"))
+Description: Provides utility functions to interact with publicly available randomness beacons. Randomness beacons are secure public services that provide fresh random seeds on a fixed schedule (for example, every minute) allowing you to pre-commit to an outcome that relies on some random process (randomization of clinical trial participants, coin flips, random seeds for machine learning algorithms or cross validation splits, etc...) without knowing what the seed is beforehand. Beacons are also hash-chained, meaning that while you may not know what the random seed is before running your analysis, anyone can verify what the seed was after your analysis is completed. 
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Suggests: 
+    assertthat,
+    cucumber,
+    knitr,
+    quarto,
+    rmarkdown,
+    testthat (>= 3.0.0),
+    vcr,
+    withr (>= 3.0.2)
+Config/testthat/edition: 3
+Imports: 
+    fs,
+    glue,
+    httr2,
+    jsonlite,
+    logger,
+    lubridate,
+    openssl,
+    R6,
+    stringr
+VignetteBuilder: knitr, quarto
+Config/roxygen2/version: 8.0.0
