@@ -1,0 +1,59 @@
+# Convert from a hexadecimal character string to a sequence of raw hex bytes
+
+Convert from a hexadecimal character string to a sequence of raw hex
+bytes
+
+## Usage
+
+``` r
+.hex_str_to_raw(hex_str, bits)
+```
+
+## Arguments
+
+- hex_str:
+
+  A string representing a bit sequence encoded in hexadecimal. In
+  practice, this will be a 64-character-long string that represents the
+  hexadecimal encoding of a 512-bit output of a hash function
+
+## Value
+
+The raw byte pair sequence that the hex_str string is meant to
+represent. In practice, this will be a vector of 64 byte-pairs encoded
+in hexadecimal representing the raw form of the 512-bit sequence passed
+as a string by hex_str
+
+## Details
+
+The values parsed from API calls to the NIST randomness beacon are in
+string form. The bits used to represent ASCII strings are different from
+the bits that those hexadecimal characters are meant to represent; e.g.
+charToRaw("0") is 0x30(hex) corresponding to 00110000 but as.raw(0) is
+0x00(hex) corresponding to 00000000. So before hashing we must convert
+the string to an integer (strtoi) and then take the raw form of that
+integer as the object to hash
+
+## See also
+
+[.to_raw](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-to_raw.md)
+factory function which calls this function when a hex string is detected
+
+## Examples
+
+``` r
+.hex_str_to_raw("00")
+#> Error in .hex_str_to_raw("00"): could not find function ".hex_str_to_raw"
+#> [1] 00
+.hex_str_to_raw("FF")
+#> Error in .hex_str_to_raw("FF"): could not find function ".hex_str_to_raw"
+#> [1] ff
+
+# More realistically,
+.hex_str_to_raw("1C63CAF668ADC6E5B97903164EF5AE6DF7570F1AC76176F9B2703BAEA77F1295A63683B63D5AD08CC9E3E5A4D7E3D25C7DE1C31377F37212B7047560A94CBBA2")
+#> Error in .hex_str_to_raw("1C63CAF668ADC6E5B97903164EF5AE6DF7570F1AC76176F9B2703BAEA77F1295A63683B63D5AD08CC9E3E5A4D7E3D25C7DE1C31377F37212B7047560A94CBBA2"): could not find function ".hex_str_to_raw"
+#> [1] 1c 63 ca f6 68 ad c6 e5 b9 79 03 16 4e f5 ae 6d f7 57 0f 1a c7 61 76 f9 b2 70 3b ae a7 7f
+#> [31] 12 95 a6 36 83 b6 3d 5a d0 8c c9 e3 e5 a4 d7 e3 d2 5c 7d e1 c3 13 77 f3 72 12 b7 04 75 60
+#> [61] a9 4c bb a2
+
+```
