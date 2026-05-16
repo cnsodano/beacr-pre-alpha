@@ -47,6 +47,7 @@ reset_seed_log(yes_to_all = TRUE)
 
 ## Installing `beacr`
 Currently, `beacr` is not yet available on CRAN. Install `beacr` directly from GitHub using `pak`(recommended), `remotes`, or `devtools`(deprecated)
+
 #### pak
 ```{.r}
 # install.packages("pak")
