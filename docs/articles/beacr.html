@@ -126,11 +126,11 @@ beacon(s) used.</p>
 <code class="sourceCode R"><span><span class="co"># Acquire seed</span></span>
 <span><span class="va">seed</span> <span class="op">=</span> <span class="fu">beacr</span><span class="fu">::</span><span class="fu"><a href="../reference/get_seed.html">get_seed</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did not detect a seed log file. Writing one to</span></span>
-<span><span class="co">#&gt;   `C:/Users/cnsodano/AppData/Local/Temp/Rtmp6Vd4Hy/PROJ_ROOT/beacr/seed_log.json`</span></span>
+<span><span class="co">#&gt;   `C:/Users/cnsodano/AppData/Local/Temp/RtmpwPuMon/PROJ_ROOT/beacr/seed_log.json`</span></span>
 <span><span class="co">#&gt; <span style="color: #BB0000;">✖</span> No preregistration identifier passed, using pulse without preregistration.</span></span>
 <span><span class="co">#&gt;   See the 'Preregistration' section in the Getting Started vignette for more</span></span>
 <span><span class="co">#&gt;   details: `vignette('beacr')`</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Pulse successfully acquired. Details written to log at C:/Users/cnsodano/AppData/Local/Temp/Rtmp6Vd4Hy/PROJ_ROOT/beacr/seed_log.json</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Pulse successfully acquired. Details written to log at C:/Users/cnsodano/AppData/Local/Temp/RtmpwPuMon/PROJ_ROOT/beacr/seed_log.json</span></span></code></pre></div>
 <p>After acquiring a random seed, you can use it for reproducible
 analyses like so:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -140,15 +140,15 @@ analyses like so:</p>
 <span><span class="co"># Use reproducible seed</span></span>
 <span><span class="va">random_draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">random_draws</span></span>
-<span><span class="co">#&gt;  [1] -0.9930791 -0.1711196 -0.1020015 -0.1499089 -0.2113556 -0.6007813</span></span>
-<span><span class="co">#&gt;  [7]  0.1173934 -0.2157839 -0.7523720  1.5529473</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] -1.1968205 -0.9516674  0.2786364 -1.4449411  0.8216518  1.2470188</span></span>
+<span><span class="co">#&gt;  [7] -0.3943568 -1.2484030 -0.6521289 -1.1707346</span></span></code></pre></div>
 <p>Then when you rerun the same code, <code>beacr</code> will read from
 the seed log to reproduce the same output.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Acquire seed (automatically reproduces previous seed acquired)</span></span>
 <span><span class="va">seed_reproduced</span> <span class="op">=</span> <span class="fu">beacr</span><span class="fu">::</span><span class="fu"><a href="../reference/get_seed.html">get_seed</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Detected seed log file at path</span></span>
-<span><span class="co">#&gt;   `C:/Users/cnsodano/AppData/Local/Temp/Rtmp6Vd4Hy/PROJ_ROOT/beacr/seed_log.json`,</span></span>
+<span><span class="co">#&gt;   `C:/Users/cnsodano/AppData/Local/Temp/RtmpwPuMon/PROJ_ROOT/beacr/seed_log.json`,</span></span>
 <span><span class="co">#&gt;   reading from that file (**NOT** generating new seeds). Call</span></span>
 <span><span class="co">#&gt;   `reset_seed_log()` to purge this file and generate new seeds</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Verifying the logged pulse can be recreated...</span></span>
@@ -174,8 +174,8 @@ called a second time results in a reproducible script:</p>
 <span><span class="co"># Use reproducible seed</span></span>
 <span><span class="va">random_draws_reproduced</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">random_draws_reproduced</span></span>
-<span><span class="co">#&gt;  [1] -0.9930791 -0.1711196 -0.1020015 -0.1499089 -0.2113556 -0.6007813</span></span>
-<span><span class="co">#&gt;  [7]  0.1173934 -0.2157839 -0.7523720  1.5529473</span></span>
+<span><span class="co">#&gt;  [1] -1.1968205 -0.9516674  0.2786364 -1.4449411  0.8216518  1.2470188</span></span>
+<span><span class="co">#&gt;  [7] -0.3943568 -1.2484030 -0.6521289 -1.1707346</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"Are the random numbers drawn after seeding identical?: {identical(random_draws, random_draws_reproduced)}"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Are the random numbers drawn after seeding identical?: TRUE</span></span></code></pre></div>
 <p>This log-based workflow makes it possible for an analysis to be
@@ -264,7 +264,7 @@ log that you may have already written in prior testing like so:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/reset_seed_log.html">reset_seed_log</a></span><span class="op">(</span>yes_to_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Deleting all files in</span></span>
-<span><span class="co">#&gt;   C:/Users/cnsodano/AppData/Local/Temp/Rtmp6Vd4Hy/PROJ_ROOT/beacr</span></span></code></pre></div>
+<span><span class="co">#&gt;   C:/Users/cnsodano/AppData/Local/Temp/RtmpwPuMon/PROJ_ROOT/beacr</span></span></code></pre></div>
 <p>Then continue by passing a preregistration identifier and source.
 Currently, only OSF files are supported.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -278,7 +278,7 @@ Currently, only OSF files are supported.</p>
 <span><span class="va">seed</span> <span class="op">=</span> <span class="fu">beacr</span><span class="fu">::</span><span class="fu"><a href="../reference/get_seed.html">get_seed</a></span><span class="op">(</span>preregistration_identifier <span class="op">=</span> <span class="va">OSF_preregistration_file_link</span>,</span>
 <span>    preregistration_source <span class="op">=</span> <span class="st">"OSF"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Did not detect a seed log file. Writing one to</span></span>
-<span><span class="co">#&gt;   `C:/Users/cnsodano/AppData/Local/Temp/Rtmp6Vd4Hy/PROJ_ROOT/beacr/seed_log.json`</span></span>
+<span><span class="co">#&gt;   `C:/Users/cnsodano/AppData/Local/Temp/RtmpwPuMon/PROJ_ROOT/beacr/seed_log.json`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Using preregistration value with</span></span>
 <span><span class="co">#&gt;   identifier:`https://osf.io/mbcw5/files/yahfc` from source: `OSF`</span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Validating the identifier passed to .get_preregistration_OSF() is not yet</span></span>
@@ -296,7 +296,7 @@ Currently, only OSF files are supported.</p>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Hash value reported by OSF's API matches the hash value of the actual file available for download from OSF</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> View source of preregistration value at:</span></span>
 <span><span class="co">#&gt;   `https://osf.io/mbcw5/files/osfstorage/686faff93ef3be547af6d5a8`</span></span>
-<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Pulse successfully acquired. Details written to log at C:/Users/cnsodano/AppData/Local/Temp/Rtmp6Vd4Hy/PROJ_ROOT/beacr/seed_log.json</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> Pulse successfully acquired. Details written to log at C:/Users/cnsodano/AppData/Local/Temp/RtmpwPuMon/PROJ_ROOT/beacr/seed_log.json</span></span></code></pre></div>
 <p>Once acquired, use the seed in the same way as you would without a
 preregistration:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -306,8 +306,8 @@ preregistration:</p>
 <span><span class="co"># Use reproducible seed</span></span>
 <span><span class="va">random_draws</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">random_draws</span></span>
-<span><span class="co">#&gt;  [1] -1.120900031 -0.989724496 -1.374696995 -1.355645082  1.996755343</span></span>
-<span><span class="co">#&gt;  [6]  0.695870030  0.771968033 -0.002846692  1.008548567 -0.990279897</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1]  1.21940192 -0.12440050 -0.95749888 -0.07916951 -1.14341131 -1.05718789</span></span>
+<span><span class="co">#&gt;  [7] -0.38453434  0.60834117  1.67246652 -1.53729435</span></span></code></pre></div>
 <p>Every subsequent call to <code>get_seed</code> will reproduce the
 Beacon pulse with all the validation steps mentioned above as well as
 verifying the preregistration file integrity (making sure the file
@@ -326,7 +326,7 @@ and logged).</p>
 <span><span class="va">seed_reproduced</span> <span class="op">=</span> <span class="fu">beacr</span><span class="fu">::</span><span class="fu"><a href="../reference/get_seed.html">get_seed</a></span><span class="op">(</span>preregistration_identifier <span class="op">=</span> <span class="va">OSF_preregistration_file_link</span>,</span>
 <span>    preregistration_source <span class="op">=</span> <span class="st">"OSF"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Detected seed log file at path</span></span>
-<span><span class="co">#&gt;   `C:/Users/cnsodano/AppData/Local/Temp/Rtmp6Vd4Hy/PROJ_ROOT/beacr/seed_log.json`,</span></span>
+<span><span class="co">#&gt;   `C:/Users/cnsodano/AppData/Local/Temp/RtmpwPuMon/PROJ_ROOT/beacr/seed_log.json`,</span></span>
 <span><span class="co">#&gt;   reading from that file (**NOT** generating new seeds). Call</span></span>
 <span><span class="co">#&gt;   `reset_seed_log()` to purge this file and generate new seeds</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Verifying the logged pulse can be recreated...</span></span>
@@ -365,8 +365,8 @@ same sequence of random numbers:</p>
 <span><span class="co"># Use reproducible seed</span></span>
 <span><span class="va">random_draws_reproduced</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
 <span><span class="va">random_draws_reproduced</span></span>
-<span><span class="co">#&gt;  [1] -1.120900031 -0.989724496 -1.374696995 -1.355645082  1.996755343</span></span>
-<span><span class="co">#&gt;  [6]  0.695870030  0.771968033 -0.002846692  1.008548567 -0.990279897</span></span>
+<span><span class="co">#&gt;  [1]  1.21940192 -0.12440050 -0.95749888 -0.07916951 -1.14341131 -1.05718789</span></span>
+<span><span class="co">#&gt;  [7] -0.38453434  0.60834117  1.67246652 -1.53729435</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"Are the random numbers drawn after seeding identical?: {identical(random_draws, random_draws_reproduced)}"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Are the random numbers drawn after seeding identical?: TRUE</span></span></code></pre></div>
 <p><br><br><br><br></p>

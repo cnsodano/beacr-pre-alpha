@@ -384,3 +384,23 @@ beacr fully loaded!
 Calling rlang::inform...
 
 
+INFO [2026-05-16 13:44:08] || .inform || strictness:0 || <message/rlang_message>
+Message:
+beacr: Debug logs are being written to: C:/Users/cnsodano/Documents/Projects/randomnessbeacon/vignettes/beacr
+Calling rlang::inform...
+
+
+namespace: beacr || Log signal type: INFO 
+[2026-05-16 13:44:08]: || .inform || strictness:0 || <message/rlang_message>
+Message:
+beacr: Seed log default location is: C:/Users/cnsodano/Documents/Projects/randomnessbeacon/vignettes/beacr
+Calling rlang::inform...
+
+
+namespace: beacr || Log signal type: INFO 
+[2026-05-16 13:44:08]: || .inform || strictness:0 || <message/rlang_message>
+Message:
+beacr fully loaded!
+Calling rlang::inform...
+
+
