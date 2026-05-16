@@ -52,6 +52,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
+<li class="nav-item"><a class="nav-link" href="https://github.com/cnsodano/beacr-pre-alpha/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-lightswitch" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Light switch"><span class="fa fa-sun"></span></button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-lightswitch">
@@ -72,9 +73,6 @@
 <img src="logo.png" class="logo" alt=""><h1 id="beacr-">beacr <a class="anchor" aria-label="anchor" href="#beacr-"></a>
 </h1>
 </div>
-<div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
-</h2>
 <p><code>beacr</code> (pronounced ‘beaker’ (<a href="https://speecher.org/?text=beaker" class="external-link">/ˈbiːkɚ/</a>)) improves the transparency of analyses that use randomness in any form by providing a random number generator that can be publicly audited after-the-fact.</p>
 <p><code>beacr</code> takes its name from the concept of <strong>randomness beacons</strong>, which are secure public services that provide fresh random seeds on a fixed schedule (for example, every minute). These beacons make it possible to preregister an expected outcome that relies on some random process <strong>without knowing what the seed for that random process is beforehand</strong>. Beacons are also hash-chained, meaning that while you may not know what the random seed is before running your analysis, anyone can verify what the seed was after your analysis is completed.</p>
 <p>A pipeline that uses <code>beacr</code> to report the results of analyses using <strong>verifiably random seeds</strong> may look like this:</p>
@@ -97,12 +95,11 @@
 <h3 id="typical-usage-pattern">Typical usage pattern<a class="anchor" aria-label="anchor" href="#typical-usage-pattern"></a>
 </h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">beacr</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cnsodano/beacr-pre-alpha">beacr</a></span><span class="op">)</span></span>
 <span><span class="va">seed</span> <span class="op">=</span> <span class="fu">beacr</span><span class="fu">::</span><span class="fu"><a href="reference/get_seed.html">get_seed</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="va">seed</span><span class="op">)</span></span>
 <span><span class="co"># Continue with reproducible random processes...</span></span></code></pre></div>
 <p>See <a href="basic_usage.html">this vignette</a> for more examples of typical usage patterns</p>
-</div>
 </div>
 <div class="section level2">
 <h2 id="preregistrations-and-publicly-verifiable-random-sampling">Preregistrations and Publicly Verifiable random sampling<a class="anchor" aria-label="anchor" href="#preregistrations-and-publicly-verifiable-random-sampling"></a>
@@ -110,7 +107,7 @@
 <p>Generating a random seed is great, but the real strength of <code>beacr</code> lies in verifying that the seed was, in fact, random. <code>beacr</code> does this using preregistrations. A preregistration is a public statement made prior to engaging in an activity that outlines how you will engage in that activity (the protocol) and what your anticipated outcomes are (the hypothesis). Preregistration of scientific experiments, for example, supports verifying after-the-fact whether the protocol was followed or not, and whether the results of that experiment support the researcher’s initial hypothesis.</p>
 <p><code>beacr</code> makes preregistering the random seed selection process simple. Pass in a link to an file uploaded to an Open Science Framework (OSF) registration and <code>beacr</code> will perform a verification check that covers the timestamp and file integrity of that registration.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">beacr</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cnsodano/beacr-pre-alpha">beacr</a></span><span class="op">)</span></span>
 <span><span class="va">seed</span> <span class="op">=</span> <span class="fu">beacr</span><span class="fu">::</span><span class="fu"><a href="reference/get_seed.html">get_seed</a></span><span class="op">(</span></span>
 <span>  preregistration_identifier <span class="op">=</span> <span class="st">"https://osf.io/yrp3f/files/4gzvx"</span>,</span>
 <span>  preregistration_source <span class="op">=</span> <span class="st">"OSF"</span></span>
@@ -134,7 +131,14 @@ To keep in line with language familiar to my intended audience for this package,
 </div>
 
 
-  </main><aside class="col-md-3"><div class="license">
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/cnsodano/beacr-pre-alpha/">Browse source code</a></li>
+</ul>
+</div>
+
+<div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
@@ -158,6 +162,13 @@ To keep in line with language familiar to my intended audience for this package,
 </div>
 
 
+
+<div class="table-of-contents">
+<h2 data-toc-skip>Table of contents</h2>
+<ul class="list-unstyled">
+<li><nav id="toc"></nav></li>
+</ul>
+</div>
 
   </aside>
 </div>

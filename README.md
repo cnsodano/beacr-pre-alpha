@@ -1,8 +1,6 @@
 
 # beacr <img src="man/figures/logo.png" height="120" />
 
-## Overview
-
 `beacr` (pronounced ‘beaker’
 ([/ˈbiːkɚ/](https://speecher.org/?text=beaker))) improves the
 transparency of analyses that use randomness in any form by providing a

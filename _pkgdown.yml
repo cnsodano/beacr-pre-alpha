@@ -35,11 +35,19 @@ template:
     black: "#3d5a80"
     primary: "#3d5a80"
 
-
+home:
+  sidebar:
+    structure: [links, license, community, citation, authors, dev, toc]
+  # links:
+  # - text: GitHub
+  #   link: https://github.com/cnsodano/beacr-pre-alpha
+  # # - text: Vignettes
+  # #   href: /articles/
+  # # - text: API Reference
+  # #   href: /reference/
 
 reference:
   - title: "Core Functions"
-    desc: "Primary functions for doing the main thing"
   - contents:
       - get_seed
       - reset_seed_log

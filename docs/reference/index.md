@@ -2,8 +2,6 @@
 
 ## Core Functions
 
-Primary functions for doing the main thing
-
 - [`get_seed()`](https://github.com/cnsodano/beacr-pre-alpha/reference/get_seed.md)
   : Get a new fresh seed from the latest pulse sent by a Beacon of
   choice.

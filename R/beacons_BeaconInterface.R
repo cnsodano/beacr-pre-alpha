@@ -101,7 +101,7 @@ BeaconInterface <- R6::R6Class(
     #' @description
     #' Hash a value according to the specifics (hash digest bit length, hash
     #' function, etc) of the particular beacon
-    hash = function(...) {
+    hash = function(value) {
       rlang::abort("Implementation left to interface implementers")
     },
 

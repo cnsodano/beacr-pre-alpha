@@ -21,11 +21,11 @@ that was returned based on the beacon(s) used.
 # Acquire seed
 seed = beacr::get_seed()
 #> ℹ Did not detect a seed log file. Writing one to
-#>   `C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr/seed_log.json`
+#>   `C:/Users/cnsodano/AppData/Local/Temp/RtmpwPc9IR/PROJ_ROOT/beacr/seed_log.json`
 #> ✖ No preregistration identifier passed, using pulse without preregistration.
 #>   See the 'Preregistration' section in the Basic Usage vignette for more
 #>   details: vignette('basic_usage', package='beacr')
-#> ✔ Pulse successfully acquired. Details written to log at C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr/seed_log.json
+#> ✔ Pulse successfully acquired. Details written to log at C:/Users/cnsodano/AppData/Local/Temp/RtmpwPc9IR/PROJ_ROOT/beacr/seed_log.json
 ```
 
 After acquiring a random seed, you can use it for reproducible analyses
@@ -39,8 +39,8 @@ set.seed(seed)
 # Use reproducible seed
 random_draws <- rnorm(10)
 random_draws
-#>  [1]  1.435937542 -0.247114351 -0.378223266  0.575575289 -0.431309558
-#>  [6]  0.008282532  1.150476337  0.412125188  0.886648426  0.832672695
+#>  [1]  0.7087955  1.2950605 -0.0890329 -0.4295528  0.6343420 -0.7697296
+#>  [7]  0.1831476 -0.4250549  0.2795045  0.9759694
 ```
 
 Then when you rerun the same code, `beacr` will read from the seed log
@@ -51,7 +51,7 @@ to reproduce the same output.
 # Acquire seed (automatically reproduces previous seed acquired)
 seed_reproduced = beacr::get_seed()
 #> ℹ Detected seed log file at path
-#>   `C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr/seed_log.json`,
+#>   `C:/Users/cnsodano/AppData/Local/Temp/RtmpwPc9IR/PROJ_ROOT/beacr/seed_log.json`,
 #>   reading from that file (**NOT** generating new seeds). Call
 #>   `reset_seed_log()` to purge this file and generate new seeds
 #> ℹ Verifying the logged pulse can be recreated...
@@ -82,8 +82,8 @@ print(glue::glue("Is the reproduced seed identical to the original?: {identical(
 # Use reproducible seed
 random_draws_reproduced <- rnorm(10)
 random_draws_reproduced
-#>  [1]  1.435937542 -0.247114351 -0.378223266  0.575575289 -0.431309558
-#>  [6]  0.008282532  1.150476337  0.412125188  0.886648426  0.832672695
+#>  [1]  0.7087955  1.2950605 -0.0890329 -0.4295528  0.6343420 -0.7697296
+#>  [7]  0.1831476 -0.4250549  0.2795045  0.9759694
 print(glue::glue("Are the random numbers drawn after seeding identical?: {identical(random_draws, random_draws_reproduced)}"))
 #> Are the random numbers drawn after seeding identical?: TRUE
 ```
@@ -177,7 +177,7 @@ that you may have already written in prior testing like so:
 
 reset_seed_log(yes_to_all = TRUE)
 #> ! Deleting all files in
-#>   C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr
+#>   C:/Users/cnsodano/AppData/Local/Temp/RtmpwPc9IR/PROJ_ROOT/beacr
 ```
 
 Then continue by passing a preregistration identifier and source.
@@ -195,7 +195,7 @@ OSF_preregistration_file_link = "https://osf.io/mbcw5/files/yahfc"
 seed = beacr::get_seed(preregistration_identifier = OSF_preregistration_file_link,
     preregistration_source = "OSF")
 #> ℹ Did not detect a seed log file. Writing one to
-#>   `C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr/seed_log.json`
+#>   `C:/Users/cnsodano/AppData/Local/Temp/RtmpwPc9IR/PROJ_ROOT/beacr/seed_log.json`
 #> ℹ Using preregistration value with
 #>   identifier:`https://osf.io/mbcw5/files/yahfc` from source: `OSF`
 #> ! Validating the identifier passed to .get_preregistration_OSF() is not yet
@@ -213,7 +213,7 @@ seed = beacr::get_seed(preregistration_identifier = OSF_preregistration_file_lin
 #> ✔ Hash value reported by OSF's API matches the hash value of the actual file available for download from OSF
 #> ℹ View source of preregistration value at:
 #>   `https://osf.io/mbcw5/files/osfstorage/686faff93ef3be547af6d5a8`
-#> ✔ Pulse successfully acquired. Details written to log at C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr/seed_log.json
+#> ✔ Pulse successfully acquired. Details written to log at C:/Users/cnsodano/AppData/Local/Temp/RtmpwPc9IR/PROJ_ROOT/beacr/seed_log.json
 ```
 
 Once acquired, use the seed in the same way as you would without a
@@ -227,8 +227,8 @@ set.seed(seed)
 # Use reproducible seed
 random_draws = rnorm(10)
 random_draws
-#>  [1] -0.8989165  0.2121311 -0.7285901  1.2355204  1.1688400 -0.6224851
-#>  [7]  0.4292219  0.7208422  1.6993732  0.2467891
+#>  [1]  0.23296666 -0.01115448  0.10457627 -0.03041436  0.66618249  0.06699208
+#>  [7] -0.82735683 -0.48197216 -0.68271637 -2.19751952
 ```
 
 Every subsequent call to `get_seed` will reproduce the Beacon pulse with
@@ -250,7 +250,7 @@ OSF_preregistration_file_link = "https://osf.io/mbcw5/files/yahfc"
 seed_reproduced = beacr::get_seed(preregistration_identifier = OSF_preregistration_file_link,
     preregistration_source = "OSF")
 #> ℹ Detected seed log file at path
-#>   `C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr/seed_log.json`,
+#>   `C:/Users/cnsodano/AppData/Local/Temp/RtmpwPc9IR/PROJ_ROOT/beacr/seed_log.json`,
 #>   reading from that file (**NOT** generating new seeds). Call
 #>   `reset_seed_log()` to purge this file and generate new seeds
 #> ℹ Verifying the logged pulse can be recreated...
@@ -293,8 +293,8 @@ print(glue::glue("Is the reproduced seed identical to the original?: {identical(
 # Use reproducible seed
 random_draws_reproduced <- rnorm(10)
 random_draws_reproduced
-#>  [1] -0.8989165  0.2121311 -0.7285901  1.2355204  1.1688400 -0.6224851
-#>  [7]  0.4292219  0.7208422  1.6993732  0.2467891
+#>  [1]  0.23296666 -0.01115448  0.10457627 -0.03041436  0.66618249  0.06699208
+#>  [7] -0.82735683 -0.48197216 -0.68271637 -2.19751952
 print(glue::glue("Are the random numbers drawn after seeding identical?: {identical(random_draws, random_draws_reproduced)}"))
 #> Are the random numbers drawn after seeding identical?: TRUE
 ```

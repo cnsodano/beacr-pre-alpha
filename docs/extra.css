@@ -39,44 +39,24 @@ root,
 }
 
 
-/* Adjusting title and image spacing, size, etc */
-.page-header img {
-    width: auto !important;
-    height: 30vh;
-    flex-shrink: 0;
-}
-
-.page-header {
-    display: flex;
-    flex-direction: row-reverse;
-    /* wide: side by side */
-    align-items: center;
-    /* vertically center image with title */
-}
-
-.page-header h1 {
-    margin: 0;
-    flex: 1;
-    /* title takes remaining space */
-}
-
-/* Narrow viewports: stack image above title */
-@media (max-width: 600px) {
-    .page-header {
-        flex-direction: column-reverse;
-        /* image on top, title below */
-        text-align: center;
-    }
-}
-/* ************* */
-
 div.img-breakout img {
     border-radius: 0.3em !important;
 }
 
+/* Increasing size of icon and other header QOL changes */
+.page-header img {
+    height: 30vh !important;
+    width: fit-content !important;
+}
 .page-header{
     border-bottom: none !important;
 }
+
+div.section.level2 h2 {
+    font-weight: bold;
+    padding-top: 1em;
+}
+/* ****************************** */
 
 pre {
     color: var(--om-white) !important;
