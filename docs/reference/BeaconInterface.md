@@ -71,7 +71,7 @@ function, etc) of the particular beacon
 
 #### Usage
 
-    BeaconInterface$hash(...)
+    BeaconInterface$hash(value)
 
 ------------------------------------------------------------------------
 

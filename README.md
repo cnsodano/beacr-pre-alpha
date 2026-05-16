@@ -20,8 +20,9 @@ A pipeline that uses `beacr` to report the results of analyses using
 
 <div class="img-breakout">
 
-<a href="reference/figures/beacr_flowchart.png" class="glightbox">
-<img src="reference/figures/beacr_flowchart.png" alt="My photo"/> </a>
+<a href="man/figures/beacr_flowchart.png" class="glightbox">
+<img src="man/figures/beacr_flowchart.png" alt="An image of a flowchart depicting the typical 'write', 'register', 'run', and 'reproduce' pipeline that the beacr package supports. From left to right: Write: protocol/hypotheses are written in a document, as well as code to produce some analysis output supporting that hypothesis. Register: files are registered with the Open Science Framework, created a locked record that cannot be re-written after registation. Run: beacr facilitates combining the pre-registered contents on the Open Science Framework servers with a time-specific random value from a randomness beacon pulse, producing a unique seed to be used to seed pseudo-random number generators used in the analysis script. When run, this produces a result. Reproduce: Re-running the analysis script re-collects the seed used by querying the randomness beacon and the Open Science Framework again, reconstructing the random seed, and re-seeding the analysis. Once the result is produced and matches the original output, results are confirmed."/>
+</a>
 
 </div>
 
@@ -44,6 +45,35 @@ your hypothesis[^1]
 notebook](https://github.com/Jason2Brownlee/MachineLearningMischief/blob/main/examples/seed_hacking_cross_validation.md)
 by [Jason Brownlee](https://github.com/Jason2Brownlee)
 
+## Installation
+
+Currently, `beacr` is not yet available on CRAN. Install `beacr`
+directly from GitHub using `pak`(recommended), `remotes`, or
+`devtools`(deprecated)
+
+#### pak
+
+``` r
+# install.packages("pak")
+pak::pak("cnsodano/beacr-pre-alpha")
+```
+
+#### remotes
+
+``` r
+# install.packages("remotes")
+remotes::install_github("cnsodano/beacr-pre-alpha")
+```
+
+#### devtools
+
+``` r
+# install.packages("devtools")
+devtools::install_github('cnsodano/beacr-pre-alpha')
+```
+
+## Usage
+
 ### Typical usage pattern
 
 ``` r
@@ -53,10 +83,9 @@ set.seed(seed)
 # Continue with reproducible random processes...
 ```
 
-See [this vignette](basic_usage.html) for more examples of typical usage
-patterns
+See `vignette("beacr")` for more examples of typical usage patterns
 
-## Preregistrations and Publicly Verifiable random sampling
+### Preregistrations and Publicly Verifiable random sampling
 
 Generating a random seed is great, but the real strength of `beacr` lies
 in verifying that the seed was, in fact, random. `beacr` does this using
@@ -113,3 +142,16 @@ manual](https://doi.org/10.6028/NIST.IR.8213-draft)
     is to prevent people from locally running their analyses every
     minute/day until they get a random pulse with a seed that works for
     their desired narrative and then selectively reporting that outcome.
+2.  The hexsticker logo I am currently using is AI generated and is a
+    placeholder while I work with a North Carolina based artist to
+    create an original logo. To my knowledge there is no way for me to
+    interrogate the provenance of reference images used by currently
+    available commercial generative AI tools, and while I’ve made
+    efforts to reverse image search it is possible that the final
+    produced image is substantially similar to original work previously
+    published on the internet. If you are an artist and believe this
+    logo is plagiarizing your work, **please reach out** and I will take
+    it down. Likewise for any art used to generate the flowchart diagram
+    above; I am still thinking about the best way to publicly organize
+    credit to icon artists whose work I’ve used. I expect to have a
+    satisfactory solution by the first release (v0.1.0)

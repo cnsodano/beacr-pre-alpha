@@ -133,7 +133,7 @@ Internal functions for developers
   NISTBeacon; namely, milliseconds since epoch
 
 - [`.to_raw()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-to_raw.md)
-  : Dispatcher
+  : Dispatcher for conversion to atomic raw byte vector type
 
 ## All internal & external names alphabetically
 
@@ -233,7 +233,7 @@ Internal functions for developers
   NISTBeacon; namely, milliseconds since epoch
 
 - [`.to_raw()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-to_raw.md)
-  : Dispatcher
+  : Dispatcher for conversion to atomic raw byte vector type
 
 - [`get_seed()`](https://github.com/cnsodano/beacr-pre-alpha/reference/get_seed.md)
   : Get a new fresh seed from the latest pulse sent by a Beacon of

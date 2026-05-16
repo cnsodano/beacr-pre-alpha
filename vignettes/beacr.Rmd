@@ -45,6 +45,25 @@ reset_seed_log(yes_to_all = TRUE)
 
 ```
 
+## Installing `beacr`
+Currently, `beacr` is not yet available on CRAN. Install `beacr` directly from GitHub using `pak`(recommended), `remotes`, or `devtools`(deprecated)
+#### pak
+```{.r}
+# install.packages("pak")
+pak::pak("cnsodano/beacr-pre-alpha")
+```
+#### remotes
+```{.r}
+# install.packages("remotes")
+remotes::install_github("cnsodano/beacr-pre-alpha")
+```
+#### devtools
+```{.r}
+# install.packages("devtools")
+devtools::install_github('cnsodano/beacr-pre-alpha')
+```
+
+## Using `beacr`
 The most simple use case for `beacr` is when you want to set your random number generator seed to a number that is both completely random and reproducible. That code may look something like this:
 ```{.r}
 seed = beacr::get_seed()

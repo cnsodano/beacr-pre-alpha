@@ -105,7 +105,7 @@ verify_log <- function(log_file, start_pulse_for_skiplist = NULL) {
       #!_RETURN Implement strict mode turning this nonstopping fail into a
       #! blocking error
       .inform(c(
-        "!" = "Preregistration was not able to be found from the log, preventing verification of preregistration. See the 'Preregistration' section in the Basic Usage vignette for more details: vignette('basic_usage', package='beacr')"
+        "!" = "Preregistration was not able to be found from the log, preventing verification of preregistration. See the 'Preregistration' section in the Getting Started vignette for more details:`vignette('beacr')`"
       ))
       .inform(c(
         "!" = "Continuing verification assuming no preregistration made."

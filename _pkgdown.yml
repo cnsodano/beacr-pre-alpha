@@ -35,6 +35,9 @@ template:
     black: "#3d5a80"
     primary: "#3d5a80"
 
+toc:
+  depth: 3
+
 home:
   sidebar:
     structure: [links, license, community, citation, authors, dev, toc]

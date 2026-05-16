@@ -70,7 +70,7 @@ library. To change libraries, update the 'current_hash_library' and
 function, etc) of the particular beacon
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{BeaconInterface$hash(...)}
+    \preformatted{BeaconInterface$hash(value)}
     \if{html}{\out{</div>}}
   }
 }

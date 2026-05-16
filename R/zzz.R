@@ -12,6 +12,23 @@
 #' @keywords internal
 .onLoad <- function(libname, pkgname) {
   pkgname = "beacr"
+  flag_file <- file.path(
+    tools::R_user_dir(pkgname, which = "data"),
+    ".welcomed"
+  )
+  if (!fs::file_exists(flag_file)) {
+    packageStartupMessage(
+      "Welcome to `",
+      pkgname,
+      "`! This message appears only once.\n",
+      "Visit https://cnsodano.github.io/beacr-pre-alpha/ to learn more about how to use `beacr` and access in-depth documentation. You can also read the vignettes that explain common use cases.\n",
+      "A good place to get started is by executing `vignette('beacr')` in your R console.\n",
+      "If you want to learn more, check out other vignettes with `browseVignettes(package='beacr')`\n"
+    )
+    # Create the flag file so the message never shows again
+    dir.create(dirname(flag_file), recursive = TRUE, showWarnings = FALSE)
+    file.create(flag_file)
+  }
   defaults_path <- system.file(
     "extdata",
     "package_settings.json",
@@ -55,8 +72,4 @@
 
   #! _RETURN Ensure logger cleans up as expected
   invisible()
-}
-
-eat <- function(a, b) {
-  return(a - b)
 }

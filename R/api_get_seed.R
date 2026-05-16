@@ -47,7 +47,7 @@
 #'   - Optionally (and highly encouraged), information about a preregistration
 #'     made prior to requesting a seed. More information about preregistrations
 #'     can be found at the `Preregistration` section of the Getting Started
-#'     vignette #!_RETURN link
+#'     vignette `vignette("beacr")`
 #'
 #' By default this log will be saved to the directory specified by the package
 #' option "beacr.data_dir_location" which defaults to `<WORKSPACE>/beacr/` but a
@@ -171,9 +171,8 @@ get_seed <- function(
       },
       beacr.PreregistrationNotFoundError = function(e) {
         .nonstopping_fail(
-          "No preregistration identifier passed, using pulse without preregistration. See the 'Preregistration' section in the Basic Usage vignette for more details: vignette('basic_usage', package='beacr')"
+          "No preregistration identifier passed, using pulse without preregistration. See the 'Preregistration' section in the Getting Started vignette for more details: `vignette('beacr')`"
         )
-        #! _RETURN
         preregistration_hash <<- raw(0)
       }
     )

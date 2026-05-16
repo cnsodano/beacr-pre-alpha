@@ -99,7 +99,8 @@ information about the seed request:
 - Optionally (and highly encouraged), information about a
   preregistration made prior to requesting a seed. More information
   about preregistrations can be found at the `Preregistration` section
-  of the Getting Started vignette \#!\_RETURN link
+  of the Getting Started vignette
+  [`vignette("beacr")`](https://github.com/cnsodano/beacr-pre-alpha/articles/beacr.md)
 
 By default this log will be saved to the directory specified by the
 package option "beacr.data_dir_location" which defaults to

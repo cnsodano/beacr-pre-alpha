@@ -49,7 +49,7 @@ HTTP request made #!_RETURN implement
 \item Optionally (and highly encouraged), information about a preregistration
 made prior to requesting a seed. More information about preregistrations
 can be found at the \code{Preregistration} section of the Getting Started
-vignette #!_RETURN link
+vignette \code{vignette("beacr")}
 }
 
 By default this log will be saved to the directory specified by the package
