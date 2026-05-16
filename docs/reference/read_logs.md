@@ -1,6 +1,10 @@
 # Read the debug log
 
-Read the debug log
+Opens a new R window that allows reading the log file using the built-in
+[`file.show()`](https://rdrr.io/r/base/file.show.html) R function,
+starting from the bottom (most recently logged messages). If no log file
+path is passed, will search for log files in the default logging
+directory
 
 ## Usage
 

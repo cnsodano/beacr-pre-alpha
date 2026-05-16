@@ -1,6 +1,4 @@
-# beacons
-
-## Beacons
+# Beacons
 
 Currently, the only beacon supported is the [National Institute of
 Standards and Technology (NIST) Interoperable Randomness Beacon

@@ -8,7 +8,18 @@ Primary functions for doing the main thing
   : Get a new fresh seed from the latest pulse sent by a Beacon of
   choice.
 - [`reset_seed_log()`](https://github.com/cnsodano/beacr-pre-alpha/reference/reset_seed_log.md)
-  : title
+  : Remove stale seed logs to allow acquiring and logging a new random
+  value
+
+## Public Utilities
+
+Utilities that may be useful for everyday use of the package, not only
+for developers
+
+- [`read_logs()`](https://github.com/cnsodano/beacr-pre-alpha/reference/read_logs.md)
+  : Read the debug log
+- [`verify_log()`](https://github.com/cnsodano/beacr-pre-alpha/reference/verify_log.md)
+  : Verify the contents of a seed log are internally consistent
 
 ## Beacons
 
@@ -23,30 +34,16 @@ Currently available Beacon implementations
 - [`NISTBeacon`](https://github.com/cnsodano/beacr-pre-alpha/reference/NISTBeacon.md)
   : NIST Interoperable Randomness Beacon Interface
 
-## Public Utilities
-
-Utilities that may be useful for everyday use of the package, not only
-for developers
-
-- [`read_logs()`](https://github.com/cnsodano/beacr-pre-alpha/reference/read_logs.md)
-  : Read the debug log
-- [`verify_log()`](https://github.com/cnsodano/beacr-pre-alpha/reference/verify_log.md)
-  : Verify the contents of a seed log are internally consistent
-
 ## Internal
 
 Internal functions for developers
 
 - [`.onLoad()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-onLoad.md)
   : Hook to run when loading the package.
+
 - [`.reset_data_dir()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-reset_data_dir.md)
   : Delete the data directory where seed log and debug log files are
   stored by default
-
-## All Non-Public Utilities
-
-All functions used that are not designated as public-facing
-(i.e. anything prepended with a .)
 
 - [`.any_is_null()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-any_is_null.md)
   : Check if there are any nulls in a list of objects
@@ -63,6 +60,16 @@ All functions used that are not designated as public-facing
 
 - [`.concatenate_hashes()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-concatenate_hashes.md)
   : Convert and concatenate two values into a single raw bytes objec
+
+- [`.delete_json()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-delete_json.md)
+  : Delete a file if it is a JSON file type
+
+- [`.delete_json_in_dir()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-delete_json_in_dir.md)
+  : Delete every JSON file in a directory
+
+- [`.dt_to_ms()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-dt_to_ms.md)
+  : Convert from a lubridate-style datetime to a NIST 'milliseconds
+  since epoch' representation
 
 - [`.get_beacon_defaults()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-get_beacon_defaults.md)
   : Get the options that need to be set for a specific Beacon to work
@@ -82,6 +89,10 @@ All functions used that are not designated as public-facing
 
 - [`.is_integer_like()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-is_integer_like.md)
   : Check if a value can be represented as an integer without loss
+
+- [`.ms_to_dt()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-ms_to_dt.md)
+  : Convert from NIST 'milliseconds-since-epoch' to a workable datetime
+  via lubridate
 
 - [`.posix_to_NIST_UNIX()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-posix_to_NIST_UNIX.md)
   :
@@ -150,6 +161,16 @@ All functions used that are not designated as public-facing
 - [`.concatenate_hashes()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-concatenate_hashes.md)
   : Convert and concatenate two values into a single raw bytes objec
 
+- [`.delete_json()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-delete_json.md)
+  : Delete a file if it is a JSON file type
+
+- [`.delete_json_in_dir()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-delete_json_in_dir.md)
+  : Delete every JSON file in a directory
+
+- [`.dt_to_ms()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-dt_to_ms.md)
+  : Convert from a lubridate-style datetime to a NIST 'milliseconds
+  since epoch' representation
+
 - [`.get_beacon_defaults()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-get_beacon_defaults.md)
   : Get the options that need to be set for a specific Beacon to work
 
@@ -168,6 +189,10 @@ All functions used that are not designated as public-facing
 
 - [`.is_integer_like()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-is_integer_like.md)
   : Check if a value can be represented as an integer without loss
+
+- [`.ms_to_dt()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-ms_to_dt.md)
+  : Convert from NIST 'milliseconds-since-epoch' to a workable datetime
+  via lubridate
 
 - [`.posix_to_NIST_UNIX()`](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-posix_to_NIST_UNIX.md)
   :
@@ -223,7 +248,8 @@ All functions used that are not designated as public-facing
   : Read the debug log
 
 - [`reset_seed_log()`](https://github.com/cnsodano/beacr-pre-alpha/reference/reset_seed_log.md)
-  : title
+  : Remove stale seed logs to allow acquiring and logging a new random
+  value
 
 - [`swirl()`](https://github.com/cnsodano/beacr-pre-alpha/reference/swirl.md)
   : Mix together the output of multiple randomness beacons to produce a
@@ -231,3 +257,9 @@ All functions used that are not designated as public-facing
 
 - [`verify_log()`](https://github.com/cnsodano/beacr-pre-alpha/reference/verify_log.md)
   : Verify the contents of a seed log are internally consistent
+
+- [`where_is_seed_log()`](https://github.com/cnsodano/beacr-pre-alpha/reference/where_is_seed_log.md)
+  :
+
+  Find where the information needed to verify the seeds acquired by
+  `get_seed` is being written to by default

@@ -21,7 +21,8 @@ describe("Unit tests: verifying previous pulses (internal functions)", {
       verified = beacon$verify_historical_seed(
         chain_index = latest_chain,
         pulse_index = latest_index - 1,
-        timestamp = NULL
+        timestamp = NULL,
+        start_pulse = latest_pulse
       )
     })
     expect_true(verified)
@@ -40,7 +41,8 @@ describe("Unit tests: verifying previous pulses (internal functions)", {
       verified = beacon$verify_historical_seed(
         chain_index = latest_chain,
         pulse_index = latest_index - 3,
-        timestamp = NULL
+        timestamp = NULL,
+        start_pulse = latest_pulse
       )
     })
     expect_true(verified)
@@ -64,7 +66,8 @@ describe("Unit tests: verifying previous pulses (internal functions)", {
       verified = beacon$verify_historical_seed(
         chain_index = latest_chain,
         pulse_index = latest_index - ceiling(1.5 * pulses_per_year_high_bound),
-        timestamp = NULL
+        timestamp = NULL,
+        start_pulse = latest_pulse
       )
     })
     expect_true(verified)

@@ -76,7 +76,24 @@ describe("NISTBeacon", {
       expect_false(beacon$is_valid_hash(hash1, comparison_value = hash2))
     })
   })
-
+  describe("$validate_pulse", {
+    it("emits warning when trying to acquire first pulse in chain", {
+      .with_tempdir({
+        vcr::use_cassette("fetch_v_2_chain_1_pulse_1_VALIDATE", {
+          beacon = NISTBeacon$new()
+          expect_message(
+            {
+              pulse_a = beacon$get_pulse(
+                chain_index = 1,
+                pulse_index = 1
+              )
+            },
+            class = "beacr.PulseValidationError"
+          )
+        })
+      })
+    })
+  })
   describe("$is_valid_hash", {
     it("passes when comparing a pulse_i to pulse_i-1's precommittment value", {
       #! NOTE: This is testing the precommitment scheme of the

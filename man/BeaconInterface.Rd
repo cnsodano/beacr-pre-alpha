@@ -8,21 +8,19 @@ a R6 class.}
 Public interface for implementing a new \code{beacr}-compatible Beacon object from
 a R6 class.
 }
+\seealso{
+\code{\link[=.get_beacon_defaults]{.get_beacon_defaults()}}
+}
 \section{Methods}{
 \subsection{Public methods}{
   \itemize{
     \item \href{#method-BeaconInterface-initialize}{\code{BeaconInterface$new()}}
-    \item \href{#method-BeaconInterface-replay_file_exists}{\code{BeaconInterface$replay_file_exists()}}
     \item \href{#method-BeaconInterface-resolve_hash_function}{\code{BeaconInterface$resolve_hash_function()}}
-    \item \href{#method-BeaconInterface-is_valid_hash}{\code{BeaconInterface$is_valid_hash()}}
-    \item \href{#method-BeaconInterface-get_pulse_by_index}{\code{BeaconInterface$get_pulse_by_index()}}
-    \item \href{#method-BeaconInterface-get_description}{\code{BeaconInterface$get_description()}}
-    \item \href{#method-BeaconInterface-get_latest_seed}{\code{BeaconInterface$get_latest_seed()}}
-    \item \href{#method-BeaconInterface-get_latest_pulse}{\code{BeaconInterface$get_latest_pulse()}}
-    \item \href{#method-BeaconInterface-get_pulse_index}{\code{BeaconInterface$get_pulse_index()}}
-    \item \href{#method-BeaconInterface-get_pulse_time}{\code{BeaconInterface$get_pulse_time()}}
-    \item \href{#method-BeaconInterface-validate_pulse}{\code{BeaconInterface$validate_pulse()}}
     \item \href{#method-BeaconInterface-hash}{\code{BeaconInterface$hash()}}
+    \item \href{#method-BeaconInterface-to_raw}{\code{BeaconInterface$to_raw()}}
+    \item \href{#method-BeaconInterface-get_pulse}{\code{BeaconInterface$get_pulse()}}
+    \item \href{#method-BeaconInterface-is_valid_hash}{\code{BeaconInterface$is_valid_hash()}}
+    \item \href{#method-BeaconInterface-verify_historical_seed}{\code{BeaconInterface$verify_historical_seed()}}
     \item \href{#method-BeaconInterface-clone}{\code{BeaconInterface$clone()}}
   }
 }
@@ -30,21 +28,22 @@ a R6 class.
 \if{html}{\out{<a id="method-BeaconInterface-initialize"></a>}}
 \if{latex}{\out{\hypertarget{method-BeaconInterface-initialize}{}}}
 \subsection{\code{BeaconInterface$new()}}{
+  Constructor method for new beacons. Defers settings of
+fields to default values found in the \code{beacons.json} spec file at
+\code{inst/extdata/beacons.json}. Each Beacon implementation should call
+\code{super$initialize(...)} to benefit from this logic. Any
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{BeaconInterface$new(...)}
     \if{html}{\out{</div>}}
   }
-}
+  \subsection{Details}{
+    For each setting argument passed to the constructor, prioriy goes to the
+user-passed value, then to the globally set option if there is any, then
+to the package's default
 
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BeaconInterface-replay_file_exists"></a>}}
-\if{latex}{\out{\hypertarget{method-BeaconInterface-replay_file_exists}{}}}
-\subsection{\code{BeaconInterface$replay_file_exists()}}{
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{BeaconInterface$replay_file_exists()}
-    \if{html}{\out{</div>}}
+In theory this allows initializing>1 Beacon objects with differing
+settings for testing or combining beacons
   }
 }
 
@@ -52,6 +51,10 @@ a R6 class.
 \if{html}{\out{<a id="method-BeaconInterface-resolve_hash_function"></a>}}
 \if{latex}{\out{\hypertarget{method-BeaconInterface-resolve_hash_function}{}}}
 \subsection{\code{BeaconInterface$resolve_hash_function()}}{
+  A resolver for selecting the library provider for the hash functions
+needed by a Beacon. This allows for less dependency on any specific hash
+library. To change libraries, update the 'current_hash_library' and
+'hash_libraries' keys in \code{inst/extdata/package_settings.json}
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{BeaconInterface$resolve_hash_function()}
@@ -60,9 +63,56 @@ a R6 class.
 }
 
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BeaconInterface-hash"></a>}}
+\if{latex}{\out{\hypertarget{method-BeaconInterface-hash}{}}}
+\subsection{\code{BeaconInterface$hash()}}{
+  Hash a value according to the specifics (hash digest bit length, hash
+function, etc) of the particular beacon
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BeaconInterface$hash(...)}
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BeaconInterface-to_raw"></a>}}
+\if{latex}{\out{\hypertarget{method-BeaconInterface-to_raw}{}}}
+\subsection{\code{BeaconInterface$to_raw()}}{
+  Convert a beacon value to a raw byte vector, mainly used to convert hex
+strings from Beacon APIs into R raw byte atomic vector types
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BeaconInterface$to_raw(value, bits = self$hash_length_bits)}
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BeaconInterface-get_pulse"></a>}}
+\if{latex}{\out{\hypertarget{method-BeaconInterface-get_pulse}{}}}
+\subsection{\code{BeaconInterface$get_pulse()}}{
+  Get a pulse from the Beacon.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{BeaconInterface$get_pulse(
+  chain_index = NULL,
+  pulse_index = NULL,
+  timestamp = NULL
+)}
+    \if{html}{\out{</div>}}
+  }
+}
+
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-BeaconInterface-is_valid_hash"></a>}}
 \if{latex}{\out{\hypertarget{method-BeaconInterface-is_valid_hash}{}}}
 \subsection{\code{BeaconInterface$is_valid_hash()}}{
+  Verify that a hashed value is consistent with the specification for a
+Beacon, namely the bit length. Optionally, compare between two hash
+values to check for equality. Useful for Beacon-specific internal
+validity checks, e.g. checking that the hash of a NISTBeacon's pulse
+randLocal value matches the previous pulse's precommitmentValue
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{BeaconInterface$is_valid_hash(hashed_value, comparison_value = NULL)}
@@ -71,89 +121,14 @@ a R6 class.
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BeaconInterface-get_pulse_by_index"></a>}}
-\if{latex}{\out{\hypertarget{method-BeaconInterface-get_pulse_by_index}{}}}
-\subsection{\code{BeaconInterface$get_pulse_by_index()}}{
+\if{html}{\out{<a id="method-BeaconInterface-verify_historical_seed"></a>}}
+\if{latex}{\out{\hypertarget{method-BeaconInterface-verify_historical_seed}{}}}
+\subsection{\code{BeaconInterface$verify_historical_seed()}}{
+  Verify that a previous seed logged is consistent on the pulse chain
+#!_RETURN Change to more specific name
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{BeaconInterface$get_pulse_by_index(...)}
-    \if{html}{\out{</div>}}
-  }
-}
-
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BeaconInterface-get_description"></a>}}
-\if{latex}{\out{\hypertarget{method-BeaconInterface-get_description}{}}}
-\subsection{\code{BeaconInterface$get_description()}}{
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{BeaconInterface$get_description()}
-    \if{html}{\out{</div>}}
-  }
-}
-
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BeaconInterface-get_latest_seed"></a>}}
-\if{latex}{\out{\hypertarget{method-BeaconInterface-get_latest_seed}{}}}
-\subsection{\code{BeaconInterface$get_latest_seed()}}{
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{BeaconInterface$get_latest_seed(...)}
-    \if{html}{\out{</div>}}
-  }
-}
-
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BeaconInterface-get_latest_pulse"></a>}}
-\if{latex}{\out{\hypertarget{method-BeaconInterface-get_latest_pulse}{}}}
-\subsection{\code{BeaconInterface$get_latest_pulse()}}{
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{BeaconInterface$get_latest_pulse(...)}
-    \if{html}{\out{</div>}}
-  }
-}
-
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BeaconInterface-get_pulse_index"></a>}}
-\if{latex}{\out{\hypertarget{method-BeaconInterface-get_pulse_index}{}}}
-\subsection{\code{BeaconInterface$get_pulse_index()}}{
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{BeaconInterface$get_pulse_index(...)}
-    \if{html}{\out{</div>}}
-  }
-}
-
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BeaconInterface-get_pulse_time"></a>}}
-\if{latex}{\out{\hypertarget{method-BeaconInterface-get_pulse_time}{}}}
-\subsection{\code{BeaconInterface$get_pulse_time()}}{
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{BeaconInterface$get_pulse_time(...)}
-    \if{html}{\out{</div>}}
-  }
-}
-
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BeaconInterface-validate_pulse"></a>}}
-\if{latex}{\out{\hypertarget{method-BeaconInterface-validate_pulse}{}}}
-\subsection{\code{BeaconInterface$validate_pulse()}}{
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{BeaconInterface$validate_pulse(...)}
-    \if{html}{\out{</div>}}
-  }
-}
-
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-BeaconInterface-hash"></a>}}
-\if{latex}{\out{\hypertarget{method-BeaconInterface-hash}{}}}
-\subsection{\code{BeaconInterface$hash()}}{
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{BeaconInterface$hash(...)}
+    \preformatted{BeaconInterface$verify_historical_seed(...)}
     \if{html}{\out{</div>}}
   }
 }

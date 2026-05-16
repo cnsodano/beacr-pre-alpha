@@ -12,7 +12,10 @@ no file is passed, a prompt menu will appear asking which log in the
 default log file directory you wish to read}
 }
 \description{
-Read the debug log
+Opens a new R window that allows reading the log file using the built-in
+\code{file.show()} R function, starting from the bottom (most recently logged
+messages). If no log file path is passed, will search for log files in the
+default logging directory
 }
 \seealso{
 \code{\link[=file.show]{file.show()}}

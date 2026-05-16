@@ -11,4 +11,4 @@ NISTBeacon, namely **milliseconds** since epoch
 
 ## See also
 
-.dt_to_ms
+[.dt_to_ms](https://github.com/cnsodano/beacr-pre-alpha/reference/dot-dt_to_ms.md)

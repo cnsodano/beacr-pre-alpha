@@ -11,7 +11,7 @@ initialization, configuration loading, and (In the future #_RETURN:) shared util
 The NIST Beacon publishes signed, timestamped random values ("pulses") at
 regular intervals. Each pulse is chained to its predecessor via hash and
 pre-commitment values, allowing consumers to verify that no pulse has been
-tampered with after the fact.'><meta property="og:image" content="https://github.com/cnsodano/beacr-pre-alpha/logo.png"><link rel="stylesheet" type="text/css" href="pkgdown/extra.css"></head><body>
+tampered with after the fact.'><meta property="og:image" content="https://github.com/cnsodano/beacr-pre-alpha/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -31,7 +31,7 @@ tampered with after the fact.'><meta property="og:image" content="https://github
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/beacons.html">beacons</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/beacons.html">Beacons</a></li>
     <li><a class="dropdown-item" href="../articles/hash_functions.html">Hash Functions</a></li>
   </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -144,9 +144,9 @@ to <code>hash_length_bits / 8</code>.</p></dd>
 <p></p><ul><li><p><a href="#method-NISTBeacon-initialize"><code>NISTBeacon$new()</code></a></p></li>
 <li><p><a href="#method-NISTBeacon-get_latest_seed"><code>NISTBeacon$get_latest_seed()</code></a></p></li>
 <li><p><a href="#method-NISTBeacon-get_latest_pulse"><code>NISTBeacon$get_latest_pulse()</code></a></p></li>
-<li><p><a href="#method-NISTBeacon-get_pulse_index"><code>NISTBeacon$get_pulse_index()</code></a></p></li>
-<li><p><a href="#method-NISTBeacon-get_pulse_time"><code>NISTBeacon$get_pulse_time()</code></a></p></li>
-<li><p><a href="#method-NISTBeacon-get_pulse_generic"><code>NISTBeacon$get_pulse_generic()</code></a></p></li>
+<li><p><a href="#method-NISTBeacon-get_pulse_by_index"><code>NISTBeacon$get_pulse_by_index()</code></a></p></li>
+<li><p><a href="#method-NISTBeacon-get_pulse_by_timestamp"><code>NISTBeacon$get_pulse_by_timestamp()</code></a></p></li>
+<li><p><a href="#method-NISTBeacon-get_pulse"><code>NISTBeacon$get_pulse()</code></a></p></li>
 <li><p><a href="#method-NISTBeacon-validate_pulse"><code>NISTBeacon$validate_pulse()</code></a></p></li>
 <li><p><a href="#method-NISTBeacon-hash"><code>NISTBeacon$hash()</code></a></p></li>
 <li><p><a href="#method-NISTBeacon-verify_historical_seed"><code>NISTBeacon$verify_historical_seed()</code></a></p></li>
@@ -160,10 +160,7 @@ to <code>hash_length_bits / 8</code>.</p></dd>
 <li><p><a href="#method-NISTBeacon-convert_to_unix_milliseconds"><code>NISTBeacon$convert_to_unix_milliseconds()</code></a></p></li>
 <li><p><a href="#method-NISTBeacon-to_raw"><code>NISTBeacon$to_raw()</code></a></p></li>
 <li><p><a href="#method-NISTBeacon-clone"><code>NISTBeacon$clone()</code></a></p></li>
-</ul></div><p><details open><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="beacr" data-topic="BeaconInterface" data-id="get_description"><a href="BeaconInterface.html#method-get_description"><code>BeaconInterface$get_description()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="beacr" data-topic="BeaconInterface" data-id="get_pulse_by_index"><a href="BeaconInterface.html#method-get_pulse_by_index"><code>BeaconInterface$get_pulse_by_index()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="beacr" data-topic="BeaconInterface" data-id="is_valid_hash"><a href="BeaconInterface.html#method-is_valid_hash"><code>BeaconInterface$is_valid_hash()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="beacr" data-topic="BeaconInterface" data-id="replay_file_exists"><a href="BeaconInterface.html#method-replay_file_exists"><code>BeaconInterface$replay_file_exists()</code></a></span></li>
+</ul></div><p><details open><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="beacr" data-topic="BeaconInterface" data-id="is_valid_hash"><a href="BeaconInterface.html#method-is_valid_hash"><code>BeaconInterface$is_valid_hash()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="beacr" data-topic="BeaconInterface" data-id="resolve_hash_function"><a href="BeaconInterface.html#method-resolve_hash_function"><code>BeaconInterface$resolve_hash_function()</code></a></span></li>
 </ul></details></p><hr><a id="method-NISTBeacon-initialize"></a><div class="section">
 <h3 id="nistbeacon-new-"><code>NISTBeacon$new()</code><a class="anchor" aria-label="anchor" href="#nistbeacon-new-"></a></h3>
@@ -254,15 +251,15 @@ is the same as '1 minute ago')</p></li>
 
 </div>
 
-<p></p><hr><a id="method-NISTBeacon-get_pulse_index"></a><div class="section">
-<h3 id="nistbeacon-get-pulse-index-"><code>NISTBeacon$get_pulse_index()</code><a class="anchor" aria-label="anchor" href="#nistbeacon-get-pulse-index-"></a></h3>
+<p></p><hr><a id="method-NISTBeacon-get_pulse_by_index"></a><div class="section">
+<h3 id="nistbeacon-get-pulse-by-index-"><code>NISTBeacon$get_pulse_by_index()</code><a class="anchor" aria-label="anchor" href="#nistbeacon-get-pulse-by-index-"></a></h3>
 <p>Fetch a specific pulse by chain index and pulse index.</p>
 <p>Unlike <code>get_latest_pulse()</code>, this method requires both arguments
 explicitly — there are no defaults. Use this when you need a
 reproducible reference to a particular pulse (e.g. for auditing or
 seeding a simulation with a historically fixed value).</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">NISTBeacon</span><span class="op">$</span><span class="fu">get_pulse_index</span><span class="op">(</span><span class="va">chain_index</span>, <span class="va">pulse_index</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">NISTBeacon</span><span class="op">$</span><span class="fu">get_pulse_by_index</span><span class="op">(</span><span class="va">chain_index</span>, <span class="va">pulse_index</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>chain_index</code></dt>
@@ -284,21 +281,21 @@ specified chain.</p></dd>
 <p></p><div class="r example copy"><div class="sourceCode"><pre><code><span><span class="va">beacon</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/NISTBeacon.html">NISTBeacon</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Fetch the 42nd pulse from chain 1</span></span>
-<span><span class="va">pulse</span> <span class="op">&lt;-</span> <span class="va">beacon</span><span class="op">$</span><span class="fu">get_pulse_index</span><span class="op">(</span>chain_index <span class="op">=</span> <span class="fl">1</span>, pulse_index <span class="op">=</span> <span class="fl">42</span><span class="op">)</span></span>
+<span><span class="va">pulse</span> <span class="op">&lt;-</span> <span class="va">beacon</span><span class="op">$</span><span class="fu">get_pulse_by_index</span><span class="op">(</span>chain_index <span class="op">=</span> <span class="fl">1</span>, pulse_index <span class="op">=</span> <span class="fl">42</span><span class="op">)</span></span>
 <span><span class="va">pulse</span><span class="op">$</span><span class="va">outputValue</span></span></code></pre></div><p></p></div>
 </div>
 
 </div>
 
-<p></p><hr><a id="method-NISTBeacon-get_pulse_time"></a><div class="section">
-<h3 id="nistbeacon-get-pulse-time-"><code>NISTBeacon$get_pulse_time()</code><a class="anchor" aria-label="anchor" href="#nistbeacon-get-pulse-time-"></a></h3>
+<p></p><hr><a id="method-NISTBeacon-get_pulse_by_timestamp"></a><div class="section">
+<h3 id="nistbeacon-get-pulse-by-timestamp-"><code>NISTBeacon$get_pulse_by_timestamp()</code><a class="anchor" aria-label="anchor" href="#nistbeacon-get-pulse-by-timestamp-"></a></h3>
 <p>Fetch the pulse that was current at a given Unix timestamp.</p>
 <p>Queries the NIST Beacon's time-based endpoint to retrieve whichever
 pulse was active at the specified moment. This is useful for
 reproducibly seeding a process from a wall-clock time.
 #_RETURN correct data type and mention str concat</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">NISTBeacon</span><span class="op">$</span><span class="fu">get_pulse_time</span><span class="op">(</span><span class="va">unix_time</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">NISTBeacon</span><span class="op">$</span><span class="fu">get_pulse_by_timestamp</span><span class="op">(</span><span class="va">unix_time</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
 <h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>unix_time</code></dt>
@@ -323,21 +320,17 @@ Convert them first with, for example,
 <span><span class="co"># Fetch the pulse active at a specific moment</span></span>
 <span><span class="co">#_RETURN issue here re: numeric, etc</span></span>
 <span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span><span class="st">"2024-06-01 00:00:00"</span>, tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">pulse</span> <span class="op">&lt;-</span> <span class="va">beacon</span><span class="op">$</span><span class="fu">get_pulse_time</span><span class="op">(</span>unix_time <span class="op">=</span> <span class="va">t</span><span class="op">)</span></span>
+<span><span class="va">pulse</span> <span class="op">&lt;-</span> <span class="va">beacon</span><span class="op">$</span><span class="fu">get_pulse_by_timestamp</span><span class="op">(</span>unix_time <span class="op">=</span> <span class="va">t</span><span class="op">)</span></span>
 <span><span class="va">pulse</span><span class="op">$</span><span class="va">outputValue</span></span></code></pre></div><p></p></div>
 </div>
 
 </div>
 
-<p></p><hr><a id="method-NISTBeacon-get_pulse_generic"></a><div class="section">
-<h3 id="nistbeacon-get-pulse-generic-"><code>NISTBeacon$get_pulse_generic()</code><a class="anchor" aria-label="anchor" href="#nistbeacon-get-pulse-generic-"></a></h3>
+<p></p><hr><a id="method-NISTBeacon-get_pulse"></a><div class="section">
+<h3 id="nistbeacon-get-pulse-"><code>NISTBeacon$get_pulse()</code><a class="anchor" aria-label="anchor" href="#nistbeacon-get-pulse-"></a></h3>
 <p></p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">NISTBeacon</span><span class="op">$</span><span class="fu">get_pulse_generic</span><span class="op">(</span></span>
-<span>  chain_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  pulse_index <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  timestamp <span class="op">=</span> <span class="cn">NULL</span></span>
-<span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">NISTBeacon</span><span class="op">$</span><span class="fu">get_pulse</span><span class="op">(</span>chain_index <span class="op">=</span> <span class="cn">NULL</span>, pulse_index <span class="op">=</span> <span class="cn">NULL</span>, timestamp <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 </div>
@@ -360,7 +353,7 @@ been no tampering in between pulses</p></li>
 <h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>pulse</code></dt>
 <dd><p>A named <code>list</code> as returned by <code>get_latest_pulse()</code>,
-<code>get_pulse_index()</code>, or <code>get_pulse_time()</code>. Must contain at minimum
+<code>get_pulse_by_index()</code>, or <code>get_pulse_by_timestamp()</code>. Must contain at minimum
 the fields <code>$chainIndex</code>, <code>$pulseIndex</code>, <code>$outputValue</code>,
 <code>$localRandomValue</code>, and <code>$listValues</code>.</p></dd>
 
@@ -379,7 +372,7 @@ the fields <code>$chainIndex</code>, <code>$pulseIndex</code>, <code>$outputValu
 <span><span class="va">beacon</span><span class="op">$</span><span class="fu">validate_pulse</span><span class="op">(</span><span class="va">pulse</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Validate a historical pulse</span></span>
-<span><span class="va">old_pulse</span> <span class="op">&lt;-</span> <span class="va">beacon</span><span class="op">$</span><span class="fu">get_pulse_index</span><span class="op">(</span>chain_index <span class="op">=</span> <span class="fl">1</span>, pulse_index <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">old_pulse</span> <span class="op">&lt;-</span> <span class="va">beacon</span><span class="op">$</span><span class="fu">get_pulse_by_index</span><span class="op">(</span>chain_index <span class="op">=</span> <span class="fl">1</span>, pulse_index <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="va">beacon</span><span class="op">$</span><span class="fu">validate_pulse</span><span class="op">(</span><span class="va">old_pulse</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 

@@ -249,13 +249,13 @@ NISTBeacon <- R6::R6Class(
           chain_index = chain_index,
           pulse_index = pulse_index
         )
-        return(pulse)
       }
       if (!is.null(timestamp)) {
         # If can only be found via timestamp
         pulse = self$get_pulse_by_timestamp(timestamp)
-        return(pulse)
       }
+      self$validate_pulse(pulse)
+      return(pulse)
     },
 
     #' @description
@@ -344,7 +344,7 @@ NISTBeacon <- R6::R6Class(
           c(
             "!" = "Validation ran on a pulse with index=1. Validity/tampering checks that verify based on previous pulses cannot be conducted. Passing validation..."
           ),
-          class = "warning"
+          class = "beacr.PulseValidationError"
         )
         return(TRUE)
       }
@@ -472,25 +472,26 @@ NISTBeacon <- R6::R6Class(
       start_pulse = NULL
     ) {
       if (is.null(start_pulse)) {
-        start_pulse = self$get_latest_pulse()
-        CHAIN_INDEX = start_pulse$chainIndex
+        start_pulse = self$get_latest_pulse(chain = pulse_to_check$chainIndex)
         .inform(c(
-          "!" = "When verifying chain integrity of logged pulse, no starting pulse was passed. Starting chain verification with the latest pulse from chain {CHAIN_INDEX}"
+          "!" = "When verifying chain integrity of logged pulse, no starting pulse was passed. Starting chain verification with the latest pulse from its chain"
         ))
+      } else {
+        .stopifnot(
+          {
+            start_pulse$chainIndex == pulse_to_check$chainIndex
+          },
+          c(
+            "Cannot verify a historical pulse using a starting pulse on a different chain",
+            "Starting pulse chain index was {start_pulse$chainIndex}",
+            "Pulse being verified chain index was {pulse_to_check$chainIndex}"
+          )
+        )
       }
+      CHAIN_INDEX = start_pulse$chainIndex
       START_INDEX = start_pulse$pulseIndex
       STOP_INDEX = pulse_to_check$pulseIndex
 
-      .stopifnot(
-        {
-          start_pulse$chainIndex == pulse_to_check$chainIndex
-        },
-        c(
-          "Cannot verify a historical pulse using a starting pulse on a different chain",
-          "Starting pulse chain index was {start_pulse$chainIndex}",
-          "Pulse being verified chain index was {pulse_to_check$chainIndex}"
-        )
-      )
       period = self$period
       if (identical(START_INDEX, STOP_INDEX)) {
         return(TRUE)

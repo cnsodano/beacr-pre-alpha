@@ -1,17 +1,22 @@
 ---
 output: github_document
 ---
-# beacr <img src="man/figures/logo.png" align="right" height="120" alt="" />
 
-## Overview
+# beacr <img src="man/figures/logo.png" height="120" />
 
 `beacr` (pronounced 'beaker' ([/ˈbiːkɚ/](https://speecher.org/?text=beaker))) improves the transparency of analyses that use randomness in any form by providing a random number generator that can be publicly audited after-the-fact. 
 
 
-`beacr` takes its name from the concept of "randomness beacons", which are secure public services that provide fresh random seeds on a fixed schedule (for example, every minute). These beacons make it possible to preregister an expected outcome that relies on some random process **without knowing what the seed for that random process is beforehand**. Beacons are also hash-chained, meaning that while you may not know what the random seed is before running your analysis, anyone can verify what the seed was after your analysis is completed. 
+`beacr` takes its name from the concept of **randomness beacons**, which are secure public services that provide fresh random seeds on a fixed schedule (for example, every minute). These beacons make it possible to preregister an expected outcome that relies on some random process **without knowing what the seed for that random process is beforehand**. Beacons are also hash-chained, meaning that while you may not know what the random seed is before running your analysis, anyone can verify what the seed was after your analysis is completed. 
 
+A pipeline that uses `beacr` to report the results of analyses using **verifiably random seeds** may look like this:
+<div class="img-breakout">
+  <a href="reference/figures/beacr_flowchart.png" class="glightbox">
+    <img src="reference/figures/beacr_flowchart.png" alt="My photo"/>
+  </a>
+</div>
 
-Typical use cases of this tool may be:
+Typical use cases of `beacr` may be:
 
 * Randomization of clinical trial participants into intervention groups
 * Transparent random audit selections 
@@ -26,6 +31,7 @@ Typical use cases of this tool may be:
 `[^1]:`{=markdown} For a toy example of seed-hacking ML model training, see [this notebook](https://github.com/Jason2Brownlee/MachineLearningMischief/blob/main/examples/seed_hacking_cross_validation.md) by [Jason Brownlee](https://github.com/Jason2Brownlee)
 
 ### Typical usage pattern
+
 ```{.r}
 library(beacr)
 seed = beacr::get_seed()

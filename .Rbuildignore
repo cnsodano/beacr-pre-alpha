@@ -3,7 +3,7 @@
 ^LICENSE\.md$
 ^.R_libs$
 ^.linenotes$
-^todo.md$
+^_todo.md$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$

@@ -109,11 +109,11 @@ has been tampered with after the fact.
 
 - [`NISTBeacon$get_latest_pulse()`](#method-NISTBeacon-get_latest_pulse)
 
-- [`NISTBeacon$get_pulse_index()`](#method-NISTBeacon-get_pulse_index)
+- [`NISTBeacon$get_pulse_by_index()`](#method-NISTBeacon-get_pulse_by_index)
 
-- [`NISTBeacon$get_pulse_time()`](#method-NISTBeacon-get_pulse_time)
+- [`NISTBeacon$get_pulse_by_timestamp()`](#method-NISTBeacon-get_pulse_by_timestamp)
 
-- [`NISTBeacon$get_pulse_generic()`](#method-NISTBeacon-get_pulse_generic)
+- [`NISTBeacon$get_pulse()`](#method-NISTBeacon-get_pulse)
 
 - [`NISTBeacon$validate_pulse()`](#method-NISTBeacon-validate_pulse)
 
@@ -143,10 +143,7 @@ has been tampered with after the fact.
 
 Inherited methods
 
-- [`BeaconInterface$get_description()`](https://github.com/cnsodano/beacr-pre-alpha/reference/BeaconInterface.html#method-get_description)
-- [`BeaconInterface$get_pulse_by_index()`](https://github.com/cnsodano/beacr-pre-alpha/reference/BeaconInterface.html#method-get_pulse_by_index)
 - [`BeaconInterface$is_valid_hash()`](https://github.com/cnsodano/beacr-pre-alpha/reference/BeaconInterface.html#method-is_valid_hash)
-- [`BeaconInterface$replay_file_exists()`](https://github.com/cnsodano/beacr-pre-alpha/reference/BeaconInterface.html#method-replay_file_exists)
 - [`BeaconInterface$resolve_hash_function()`](https://github.com/cnsodano/beacr-pre-alpha/reference/BeaconInterface.html#method-resolve_hash_function)
 
 ------------------------------------------------------------------------
@@ -250,7 +247,7 @@ Beacon API. Key fields include:
 
 ------------------------------------------------------------------------
 
-### `NISTBeacon$get_pulse_index()`
+### `NISTBeacon$get_pulse_by_index()`
 
 Fetch a specific pulse by chain index and pulse index.
 
@@ -261,7 +258,7 @@ seeding a simulation with a historically fixed value).
 
 #### Usage
 
-    NISTBeacon$get_pulse_index(chain_index, pulse_index)
+    NISTBeacon$get_pulse_by_index(chain_index, pulse_index)
 
 #### Arguments
 
@@ -283,12 +280,12 @@ for a description of key fields.
     beacon <- NISTBeacon$new()
 
     # Fetch the 42nd pulse from chain 1
-    pulse <- beacon$get_pulse_index(chain_index = 1, pulse_index = 42)
+    pulse <- beacon$get_pulse_by_index(chain_index = 1, pulse_index = 42)
     pulse$outputValue
 
 ------------------------------------------------------------------------
 
-### `NISTBeacon$get_pulse_time()`
+### `NISTBeacon$get_pulse_by_timestamp()`
 
 Fetch the pulse that was current at a given Unix timestamp.
 
@@ -299,7 +296,7 @@ correct data type and mention str concat
 
 #### Usage
 
-    NISTBeacon$get_pulse_time(unix_time)
+    NISTBeacon$get_pulse_by_timestamp(unix_time)
 
 #### Arguments
 
@@ -326,20 +323,16 @@ A named `list` representing the pulse object active at `unix_time`. See
     # Fetch the pulse active at a specific moment
     #_RETURN issue here re: numeric, etc
     t <- as.numeric(as.POSIXct("2024-06-01 00:00:00", tz = "UTC"))
-    pulse <- beacon$get_pulse_time(unix_time = t)
+    pulse <- beacon$get_pulse_by_timestamp(unix_time = t)
     pulse$outputValue
 
 ------------------------------------------------------------------------
 
-### `NISTBeacon$get_pulse_generic()`
+### `NISTBeacon$get_pulse()`
 
 #### Usage
 
-    NISTBeacon$get_pulse_generic(
-      chain_index = NULL,
-      pulse_index = NULL,
-      timestamp = NULL
-    )
+    NISTBeacon$get_pulse(chain_index = NULL, pulse_index = NULL, timestamp = NULL)
 
 ------------------------------------------------------------------------
 
@@ -368,8 +361,8 @@ supplied:
 - `pulse`:
 
   A named `list` as returned by `get_latest_pulse()`,
-  `get_pulse_index()`, or `get_pulse_time()`. Must contain at minimum
-  the fields `$chainIndex`, `$pulseIndex`, `$outputValue`,
+  `get_pulse_by_index()`, or `get_pulse_by_timestamp()`. Must contain at
+  minimum the fields `$chainIndex`, `$pulseIndex`, `$outputValue`,
   `$localRandomValue`, and `$listValues`.
 
 #### Returns
@@ -386,7 +379,7 @@ Warnings). Never returns `FALSE`; failure always raises an error.
     beacon$validate_pulse(pulse)
 
     # Validate a historical pulse
-    old_pulse <- beacon$get_pulse_index(chain_index = 1, pulse_index = 100)
+    old_pulse <- beacon$get_pulse_by_index(chain_index = 1, pulse_index = 100)
     beacon$validate_pulse(old_pulse)
 
 ------------------------------------------------------------------------

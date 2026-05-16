@@ -20,7 +20,6 @@
 <meta name="description" content="Provides utility functions to interact with publicly available randomness beacons. Randomness beacons are secure public services that provide fresh random seeds on a fixed schedule (for example, every minute) allowing you to pre-commit to an outcome that relies on some random process (randomization of clinical trial participants, coin flips, random seeds for machine learning algorithms or cross validation splits, etc...) without knowing what the seed is beforehand. Beacons are also hash-chained, meaning that while you may not know what the random seed is before running your analysis, anyone can verify what the seed was after your analysis is completed.">
 <meta property="og:description" content="Provides utility functions to interact with publicly available randomness beacons. Randomness beacons are secure public services that provide fresh random seeds on a fixed schedule (for example, every minute) allowing you to pre-commit to an outcome that relies on some random process (randomization of clinical trial participants, coin flips, random seeds for machine learning algorithms or cross validation splits, etc...) without knowing what the seed is beforehand. Beacons are also hash-chained, meaning that while you may not know what the random seed is before running your analysis, anyone can verify what the seed was after your analysis is completed.">
 <meta property="og:image" content="https://github.com/cnsodano/beacr-pre-alpha/logo.png">
-<link rel="stylesheet" type="text/css" href="pkgdown/extra.css">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -44,7 +43,7 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/beacons.html">beacons</a></li>
+<li><a class="dropdown-item" href="articles/beacons.html">Beacons</a></li>
     <li><a class="dropdown-item" href="articles/hash_functions.html">Hash Functions</a></li>
   </ul>
 </li>
@@ -76,9 +75,13 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p><code>beacr</code> (pronounced ‘beaker’ (<a href="https://speecher.org/?text=beaker" class="external-link">/ˈbiːkɚ/</a>{_target=“blank”})) improves the transparency of analyses that use randomness in any form by providing a random number generator that can be publicly audited after-the-fact.</p>
-<p><code>beacr</code> takes its name from the concept of “randomness beacons”, which are secure public services that provide fresh random seeds on a fixed schedule (for example, every minute). These beacons make it possible to preregister an expected outcome that relies on some random process <strong>without knowing what the seed for that random process is beforehand</strong>. Beacons are also hash-chained, meaning that while you may not know what the random seed is before running your analysis, anyone can verify what the seed was after your analysis is completed.</p>
-<p>Typical use cases of this tool may be:</p>
+<p><code>beacr</code> (pronounced ‘beaker’ (<a href="https://speecher.org/?text=beaker" class="external-link">/ˈbiːkɚ/</a>)) improves the transparency of analyses that use randomness in any form by providing a random number generator that can be publicly audited after-the-fact.</p>
+<p><code>beacr</code> takes its name from the concept of <strong>randomness beacons</strong>, which are secure public services that provide fresh random seeds on a fixed schedule (for example, every minute). These beacons make it possible to preregister an expected outcome that relies on some random process <strong>without knowing what the seed for that random process is beforehand</strong>. Beacons are also hash-chained, meaning that while you may not know what the random seed is before running your analysis, anyone can verify what the seed was after your analysis is completed.</p>
+<p>A pipeline that uses <code>beacr</code> to report the results of analyses using <strong>verifiably random seeds</strong> may look like this:</p>
+<div class="img-breakout">
+<p><a href="reference/figures/beacr_flowchart.png" class="glightbox"> <img src="reference/figures/beacr_flowchart.png" alt="My photo"></a></p>
+</div>
+<p>Typical use cases of <code>beacr</code> may be:</p>
 <ul>
 <li>Randomization of clinical trial participants into intervention groups</li>
 <li>Transparent random audit selections
@@ -100,65 +103,6 @@
 <span><span class="co"># Continue with reproducible random processes...</span></span></code></pre></div>
 <p>See <a href="basic_usage.html">this vignette</a> for more examples of typical usage patterns</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="beacons">Beacons<a class="anchor" aria-label="anchor" href="#beacons"></a>
-</h2>
-<p>Currently, the only beacon supported is the <a href="https://csrc.nist.gov/projects/interoperable-randomness-beacons/beacon-20" class="external-link">National Institute of Standards and Technology (NIST) Interoperable Randomness Beacon (v2.0)</a> developed by the Cryptographic Technology group at NIST, the same department that developed the <a href="https://en.wikipedia.org/wiki/Secure_Hash_Algorithms" class="external-link">Secure Hash Algorithm (SHA)</a> and hosted the competition that resulted in the development of the <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" class="external-link">Advanced Encryption Standard (AES)</a>.</p>
-<details><summary>
-More on the NIST Beacon
-</summary><p>The NIST beacon v2.0 issues a ‘pulse’ every 60 seconds which can be accessed by a public API returning a JSON data object which includes metadata about the pulse as well as a fresh random number.</p>
-<p>The main security feature that the NIST beacon employs that is relevant for the typical user of this package (there are many beyond the scope of this documentation) is hash-chaining:</p>
-<ul>
-<li>Each pulse is part of a chain. Every pulse provides a random number generated internally that is then combined with all of the metadata about the chain (including among other things the previous pulse’s output) to produce the final output.</li>
-<li>As a result, any attempt to alter the record of a previous pulse will be inconsistent with all future pulses in that chain
-<ul>
-<li>This does not prevent a motivated agent with the ability to alter <strong>all</strong> records in the NIST database from spoofing a historical record, but it does mean that any alterations to the NIST database can be detected as long as an external trusted copy of that chain is preserved</li>
-</ul>
-</li>
-<li>The default chain index currently used is chain 2 which started in
-<ol start="2022" style="list-style-type: decimal"><li>
-</li></ol>
-</li>
-</ul>
-<p><strong>Resources:</strong></p>
-<ul>
-<li><a href="https://csrc.nist.gov/projects/interoperable-randomness-beacons" class="external-link">NIST Beacon info page</a></li>
-<li><a href="https://csrc.nist.gov/Projects/interoperable-randomness-beacons/beacon-20" class="external-link">NIST Beacon simple API documentation</a></li>
-<li>The formal schema for the v2.0 beacon can be found in <code>/inst/extdata/beacon_schemas/NIST_v_2-0_schema.xsd</code>
-</li>
-<li>The formal reference manual can be found <a href="https://doi.org/10.6028/NIST.IR.8213-draft" class="external-link">here</a>.
-<ul>
-<li>This document is both highly technical document and oddly vauge in that it describes in depth both the current NIST beacon version’s API but also what properties randomness beacons ought to have. A much more approachable and streamlined explanation can be found in presentation slides posted by one of the manual’s authors <a href="https://csrc.nist.gov/csrc/media/Presentations/2024/web3rand-pulses-of-unpredictability/images-media/20240618-W3Rand-Virtual-Workshop-NIST-Ref-Rand-Beacons.pdf" class="external-link">here</a>
-</li>
-</ul>
-</li>
-</ul>
-<p>There are other open source client libraries for the NIST Beacon that I’ve not yet used, but may be worth checking out:</p>
-<ul>
-<li>Python: <a href="https://github.com/urda/nistbeacon" class="external-link">nistbeacon</a>
-</li>
-<li>Javascript: <a href="https://github.com/chainpoint/nist-randomness-beacon" class="external-link">nist-randomness-beacon</a>
-</li>
-</ul></details><details><summary>
-Future directions for new Beacons
-</summary><p>A major limitation of the current alpha version of <code>beacr</code> is relying on only one randomness beacon. The developers of NIST’s beacon themselves suggest that mixing (or <em><code><a href="reference/swirl.html">beacr::swirl</a></code>ing</em>) beacons together provide a more robust seed generation method in the event that any one beacon becomes unreliable. In future versions, I hope to implement additional beacons, and I welcome contributions to this end. Other beacons available at the moment are:</p>
-<ul>
-<li>
-<a href="https://drand.love/" class="external-link">Distributed Randomness Beacon (drand)</a> from the <a href="https://blog.cloudflare.com/league-of-entropy/" class="external-link">League of Entropy</a>
-<ul>
-<li>drand has client libraries for accessing their beacon via <a href="https://github.com/drand/drand" class="external-link">Go</a> and <a href="https://github.com/drand/drand-client" class="external-link">Javascript</a>, but not R (to my knowledge)</li>
-</ul>
-</li>
-<li>
-<a href="https://random.colorado.edu/" class="external-link">The University of Colorado Boulder’s CURBy (CU Randomness Beacon)</a>
-<ul>
-<li>CURBy has an official <a href="https://github.com/buff-beacon-project/curby-js-client" class="external-link">Javascript</a> client library, but no library for R (to my knowledge)</li>
-</ul>
-</li>
-</ul>
-If you wish to contribute to this project, adding additional beacons is a great place to start.
-</details>
 </div>
 <div class="section level2">
 <h2 id="preregistrations-and-publicly-verifiable-random-sampling">Preregistrations and Publicly Verifiable random sampling<a class="anchor" aria-label="anchor" href="#preregistrations-and-publicly-verifiable-random-sampling"></a>

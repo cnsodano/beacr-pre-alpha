@@ -6,10 +6,9 @@ reproducible. That code may look something like this:
 
 ``` r
 
-library(beacr)
 seed = beacr::get_seed()
 set.seed(seed)
-# Continue with random reproducible random processes...
+# Continue with reproducible random processes...
 ```
 
 When
@@ -19,24 +18,29 @@ that was returned based on the beacon(s) used.
 
 ``` r
 
-library(beacr)
-
 # Acquire seed
 seed = beacr::get_seed()
 #> ℹ Did not detect a seed log file. Writing one to
-#>   `C:/Users/cnsodano/AppData/Local/Temp/Rtmp2dOWwj/PROJ_ROOT/beacr/seed_log.json`
+#>   `C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr/seed_log.json`
 #> ✖ No preregistration identifier passed, using pulse without preregistration.
 #>   See the 'Preregistration' section in the Basic Usage vignette for more
 #>   details: vignette('basic_usage', package='beacr')
-#> ✔ Pulse successfully acquired. Details written to log at C:/Users/cnsodano/AppData/Local/Temp/Rtmp2dOWwj/PROJ_ROOT/beacr/seed_log.json
+#> ✔ Pulse successfully acquired. Details written to log at C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr/seed_log.json
+```
+
+After acquiring a random seed, you can use it for reproducible analyses
+like so:
+
+``` r
 
 # Set seed acquired
 set.seed(seed)
 
 # Use reproducible seed
-rnorm(10)
-#>  [1]  0.93332697 -0.52503178  1.81443979  0.08304562  0.39571880 -2.19366962
-#>  [7] -0.36031653  0.14285392 -0.20372857  0.44562449
+random_draws <- rnorm(10)
+random_draws
+#>  [1]  1.435937542 -0.247114351 -0.378223266  0.575575289 -0.431309558
+#>  [6]  0.008282532  1.150476337  0.412125188  0.886648426  0.832672695
 ```
 
 Then when you rerun the same code, `beacr` will read from the seed log
@@ -45,16 +49,16 @@ to reproduce the same output.
 ``` r
 
 # Acquire seed (automatically reproduces previous seed acquired)
-seed = beacr::get_seed()
+seed_reproduced = beacr::get_seed()
 #> ℹ Detected seed log file at path
-#>   `C:/Users/cnsodano/AppData/Local/Temp/Rtmp2dOWwj/PROJ_ROOT/beacr/seed_log.json`,
+#>   `C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr/seed_log.json`,
 #>   reading from that file (**NOT** generating new seeds). Call
 #>   `reset_seed_log()` to purge this file and generate new seeds
 #> ℹ Verifying the logged pulse can be recreated...
 #> ✔ The beacon pulse logged matches the beacon pulse issued at the logged timestamp
 #> ℹ Verifying the chain integrity of the logged pulse...
 #> ! When verifying chain integrity of logged pulse, no starting pulse was passed.
-#>   Starting chain verification with the latest pulse from chain 2
+#>   Starting chain verification with the latest pulse from its chain
 #> ✔ Successfully verified chain integrity of logged pulse!
 #> ! Preregistration was not able to be found from the log, preventing
 #>   verification of preregistration. See the 'Preregistration' section in the
@@ -63,14 +67,25 @@ seed = beacr::get_seed()
 #> ! Continuing verification assuming no preregistration made.
 #> ✔ Random seed logged is consistent with the logged preregistration and logged beacon pulse value...
 #> ✔ Successfully verified log! Returning reproducible seed...
+```
+
+When can then verify that the output of `get_seed` when called a second
+time results in a reproducible script:
+
+``` r
 
 # Set reproduced seed
-set.seed(seed)
+set.seed(seed_reproduced)
+print(glue::glue("Is the reproduced seed identical to the original?: {identical(seed, seed_reproduced)}"))
+#> Is the reproduced seed identical to the original?: TRUE
 
 # Use reproducible seed
-rnorm(10)
-#>  [1]  0.93332697 -0.52503178  1.81443979  0.08304562  0.39571880 -2.19366962
-#>  [7] -0.36031653  0.14285392 -0.20372857  0.44562449
+random_draws_reproduced <- rnorm(10)
+random_draws_reproduced
+#>  [1]  1.435937542 -0.247114351 -0.378223266  0.575575289 -0.431309558
+#>  [6]  0.008282532  1.150476337  0.412125188  0.886648426  0.832672695
+print(glue::glue("Are the random numbers drawn after seeding identical?: {identical(random_draws, random_draws_reproduced)}"))
+#> Are the random numbers drawn after seeding identical?: TRUE
 ```
 
 This log-based workflow makes it possible for an analysis to be
@@ -128,8 +143,8 @@ pre-registration file. In theory, this means that the results of the
 analysis can only be reproducible if posted alongside the original
 analysis plan in the form of its preregistration.¹
 
-Super technical specifics about how preregistration is incorporated into
-seed generation
+Technical specifics about how preregistration is incorporated into seed
+generation
 
 Specifically, the seed value returned by `get_seed` will be (by default,
 using the NISTBeacon) the SHA-512 hash of the **concatenation** of
@@ -142,7 +157,10 @@ As a formula,
 
 `seed = HASH_512( HASH_256(preregistration_binary_data) || BEACON_512 )`
 
-*where `||` means concatenation, not bitwise `OR`*
+- *where `||` means concatenation of the binary values, not bitwise
+  `OR`*
+- *where BEACON_512 is the 512 bit output of the beacon*
+- *where HASH_xxx is the SHA-family hash function*
 
 Before computing this unique seed, `beacr` will verify file integrity by
 downloading the pre-registration file from the OSF API URI provided, and
@@ -158,9 +176,8 @@ that you may have already written in prior testing like so:
 ``` r
 
 reset_seed_log(yes_to_all = TRUE)
-#> dir TRUE
 #> ! Deleting all files in
-#>   C:/Users/cnsodano/AppData/Local/Temp/Rtmp2dOWwj/PROJ_ROOT/beacr
+#>   C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr
 ```
 
 Then continue by passing a preregistration identifier and source.
@@ -178,7 +195,7 @@ OSF_preregistration_file_link = "https://osf.io/mbcw5/files/yahfc"
 seed = beacr::get_seed(preregistration_identifier = OSF_preregistration_file_link,
     preregistration_source = "OSF")
 #> ℹ Did not detect a seed log file. Writing one to
-#>   `C:/Users/cnsodano/AppData/Local/Temp/Rtmp2dOWwj/PROJ_ROOT/beacr/seed_log.json`
+#>   `C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr/seed_log.json`
 #> ℹ Using preregistration value with
 #>   identifier:`https://osf.io/mbcw5/files/yahfc` from source: `OSF`
 #> ! Validating the identifier passed to .get_preregistration_OSF() is not yet
@@ -196,15 +213,22 @@ seed = beacr::get_seed(preregistration_identifier = OSF_preregistration_file_lin
 #> ✔ Hash value reported by OSF's API matches the hash value of the actual file available for download from OSF
 #> ℹ View source of preregistration value at:
 #>   `https://osf.io/mbcw5/files/osfstorage/686faff93ef3be547af6d5a8`
-#> ✔ Pulse successfully acquired. Details written to log at C:/Users/cnsodano/AppData/Local/Temp/Rtmp2dOWwj/PROJ_ROOT/beacr/seed_log.json
+#> ✔ Pulse successfully acquired. Details written to log at C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr/seed_log.json
+```
+
+Once acquired, use the seed in the same way as you would without a
+preregistration:
+
+``` r
 
 # Set reproducible seed
 set.seed(seed)
 
 # Use reproducible seed
-rnorm(10)
-#>  [1]  0.7824106 -1.3419822 -0.7098863 -0.9470434 -1.8156669  0.6655587
-#>  [7] -0.7128168 -0.7995668 -0.9787339 -0.7264963
+random_draws = rnorm(10)
+random_draws
+#>  [1] -0.8989165  0.2121311 -0.7285901  1.2355204  1.1688400 -0.6224851
+#>  [7]  0.4292219  0.7208422  1.6993732  0.2467891
 ```
 
 Every subsequent call to `get_seed` will reproduce the Beacon pulse with
@@ -223,17 +247,17 @@ OSF_preregistration_file_link = "https://osf.io/mbcw5/files/yahfc"
 
 # Acquire an ex post facto verifiably reproducible seed that is inseparably
 # linked to your preregistration
-seed = beacr::get_seed(preregistration_identifier = OSF_preregistration_file_link,
+seed_reproduced = beacr::get_seed(preregistration_identifier = OSF_preregistration_file_link,
     preregistration_source = "OSF")
 #> ℹ Detected seed log file at path
-#>   `C:/Users/cnsodano/AppData/Local/Temp/Rtmp2dOWwj/PROJ_ROOT/beacr/seed_log.json`,
+#>   `C:/Users/cnsodano/AppData/Local/Temp/RtmpKCqdCn/PROJ_ROOT/beacr/seed_log.json`,
 #>   reading from that file (**NOT** generating new seeds). Call
 #>   `reset_seed_log()` to purge this file and generate new seeds
 #> ℹ Verifying the logged pulse can be recreated...
 #> ✔ The beacon pulse logged matches the beacon pulse issued at the logged timestamp
 #> ℹ Verifying the chain integrity of the logged pulse...
 #> ! When verifying chain integrity of logged pulse, no starting pulse was passed.
-#>   Starting chain verification with the latest pulse from chain 2
+#>   Starting chain verification with the latest pulse from its chain
 #> ✔ Successfully verified chain integrity of logged pulse!
 #> ℹ Detected a preregistration message in log.
 #> ✔ Random seed logged is consistent with the logged preregistration and logged beacon pulse value...
@@ -254,14 +278,25 @@ seed = beacr::get_seed(preregistration_identifier = OSF_preregistration_file_lin
 #> ✔ Hash value reported by OSF's API matches the hash value of the actual file available for download from OSF
 #> ✔ Preregistration was published before the logged pulse timestamp
 #> ✔ Successfully verified log! Returning reproducible seed...
+```
 
-# Set reproducible seed
-set.seed(seed)
+To verify that the seed reproduced in this way results in the exact same
+sequence of random numbers:
+
+``` r
+
+# Set reproduced seed
+set.seed(seed_reproduced)
+print(glue::glue("Is the reproduced seed identical to the original?: {identical(seed, seed_reproduced)}"))
+#> Is the reproduced seed identical to the original?: TRUE
 
 # Use reproducible seed
-rnorm(10)
-#>  [1]  0.7824106 -1.3419822 -0.7098863 -0.9470434 -1.8156669  0.6655587
-#>  [7] -0.7128168 -0.7995668 -0.9787339 -0.7264963
+random_draws_reproduced <- rnorm(10)
+random_draws_reproduced
+#>  [1] -0.8989165  0.2121311 -0.7285901  1.2355204  1.1688400 -0.6224851
+#>  [7]  0.4292219  0.7208422  1.6993732  0.2467891
+print(glue::glue("Are the random numbers drawn after seeding identical?: {identical(random_draws, random_draws_reproduced)}"))
+#> Are the random numbers drawn after seeding identical?: TRUE
 ```
 
   

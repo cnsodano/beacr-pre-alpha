@@ -98,15 +98,18 @@ information about the seed request:
 
 - Optionally (and highly encouraged), information about a
   preregistration made prior to requesting a seed. More information
-  about preregistrations can be found at the `preregistration` vignette
-  \#!\_RETURN implement
+  about preregistrations can be found at the `Preregistration` section
+  of the Getting Started vignette \#!\_RETURN link
 
 By default this log will be saved to the directory specified by the
-package option "beacr.data_dir_location" which defaults to the
-OS-default User Application Data Directory, but a log file path can be
-passed directly. Call
-``` beacr::where_is_seed_log()`` to find where this file is stored. !#_RETURN Implement. This file will be then be used on the next call to  ```get_seed(...)`to 'replay' the recorded pulse request and verify that the contents of the log are internally consistent (using`verify_log(...)\`.
-If an identifier for an external preregistration source is passed via
+package option "beacr.data_dir_location" which defaults to
+`<WORKSPACE>/beacr/` but a log file path can be passed directly. Call
+\`beacr::where_is_seed_log()“ to find where this file is stored.
+
+This file will be then be used on the next call to `get_seed(...)` to
+'replay' the recorded pulse request and verify that the contents of the
+log are internally consistent (using `verify_log(...)`. If an identifier
+for an external preregistration source is passed via
 preregistration_identifier and preregistration_source, this resource
 will be downloaded and validated as part of the verification process. If
 using this function call as a source of a verifiably random,

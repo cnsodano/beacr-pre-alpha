@@ -2,7 +2,30 @@ url: https://github.com/cnsodano/beacr-pre-alpha/
 template:
   bootstrap: 5
   includes:
-    in_header: <link rel="stylesheet" type="text/css" href="pkgdown/extra.css" />
+  in_header: |
+      <link rel="stylesheet" type="text/css" href="pkgdown/extra.css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+      <style>
+        .img-breakout {
+          width: 100vw;
+          max-width: 100vw;
+          margin-left: calc(50% - 50vw);
+          margin-right: calc(50% - 50vw);
+          display: block;
+        }
+        .img-breakout img {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+      </style>
+  before_body: |
+      <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          GLightbox({ selector: '.glightbox' });
+        });
+      </script>
   light-switch: true
   bslib:
     bootswatch: cosmo
@@ -20,25 +43,21 @@ reference:
   - contents:
       - get_seed
       - reset_seed_log
-      # - -starts_with("\\.")
-  - title: "Beacons"
-    desc: "Currently available Beacon implementations"
-  - contents:
-    - BeaconInterface
-    - NISTBeacon
   - title: "Public Utilities"
     desc: "Utilities that may be useful for everyday use of the package, not only for developers"
   - contents:
       - read_logs
       - verify_log
+  - title: "Beacons"
+    desc: "Currently available Beacon implementations"
+  - contents:
+    - BeaconInterface
+    - NISTBeacon
   - title: "Internal"
     desc: "Internal functions for developers"
   - contents:
       - has_keyword("internal")
-  - title: "All Non-Public Utilities"
-    desc: "All functions used that are not designated as public-facing (i.e. anything prepended with a .)"
-  - contents:
-     - starts_with("\\.")
+      - starts_with("\\.")
   - title: "All internal & external names alphabetically"
   - contents:
     - matches(".")

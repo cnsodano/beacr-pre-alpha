@@ -21,7 +21,7 @@
   )
   expect_match(
     msgs[5],
-    regexp = "! When verifying chain integrity of logged pulse, no starting pulse was passed. Starting chain verification with the latest pulse from chain 2\n"
+    regexp = "! When verifying chain integrity of logged pulse, no starting pulse was passed. Starting chain verification with the latest pulse"
   )
   expect_match(
     msgs[6],
@@ -32,20 +32,24 @@
     regexp = "! Will have to perform approximately \\d+ API calls to verify the chain..."
   )
   expect_match(
-    msgs[length(msgs) - 4],
+    msgs[length(msgs) - 5],
     regexp = "v The beacon pulse logged is on a consistent chain of pulses\n"
   )
   expect_match(
-    msgs[length(msgs) - 3],
+    msgs[length(msgs) - 4],
     regexp = "v Successfully verified chain integrity of logged pulse!\n"
   )
   expect_match(
-    msgs[length(msgs) - 2],
+    msgs[length(msgs) - 3],
     regexp = "! Preregistration was not able to be found from the log"
   )
   expect_match(
-    msgs[length(msgs) - 1],
+    msgs[length(msgs) - 2],
     regexp = "! Continuing verification assuming no preregistration made.\n"
+  )
+  expect_match(
+    msgs[length(msgs) - 1],
+    regexp = "v Random seed logged is consistent with the logged preregistration and logged beacon pulse"
   )
   expect_match(
     msgs[length(msgs)],

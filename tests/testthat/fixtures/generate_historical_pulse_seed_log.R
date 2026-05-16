@@ -11,7 +11,7 @@ beacr::get_seed(
   pulse_index = 100
 )
 
-#=======================================
+#======================================= TAMPERED LOG
 
 tampered_historical_log_file_path = test_path(
   "fixtures",

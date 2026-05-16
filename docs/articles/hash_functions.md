@@ -95,7 +95,7 @@ difference in input can result in a large different in output, I did not
 show that any differences in output are not **correlated** with the
 change in input. This is beyond the scope of this package, as I assume
 and hope you are using `beacr` to generate a single seed for a
-Pseudo-Random Number Generator (PRNG), instead of using it as a PRNG
+Pseudo-Random Number Generator (PRNG), instead of using it as a RNG
 itself. After seeding the PRNG with a random number from `beacr` (which
 is computationally infeasible to ‘game’), you should rely on the
 statistical properties of your PRNG algorithm to ensure the initial

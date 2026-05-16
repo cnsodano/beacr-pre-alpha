@@ -13,11 +13,15 @@
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-change_byte.html</loc></url>
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-cli_progress_output.html</loc></url>
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-concatenate_hashes.html</loc></url>
+<url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-delete_json.html</loc></url>
+<url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-delete_json_in_dir.html</loc></url>
+<url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-dt_to_ms.html</loc></url>
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-get_beacon_defaults.html</loc></url>
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-get_beacon_json.html</loc></url>
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-get_option.html</loc></url>
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-hex_str_to_raw.html</loc></url>
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-is_integer_like.html</loc></url>
+<url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-ms_to_dt.html</loc></url>
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-onLoad.html</loc></url>
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-posix_to_NIST_UNIX.html</loc></url>
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/dot-preregistration_exists.html</loc></url>
@@ -37,6 +41,7 @@
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/reset_seed_log.html</loc></url>
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/swirl.html</loc></url>
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/verify_log.html</loc></url>
+<url><loc>https://github.com/cnsodano/beacr-pre-alpha/reference/where_is_seed_log.html</loc></url>
 <url><loc>https://github.com/cnsodano/beacr-pre-alpha/_todo.html</loc></url>
 </urlset>
 

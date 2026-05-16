@@ -14,10 +14,12 @@
   return(.dt_to_ms(lubridate::as_datetime(timeStamp)))
 }
 
+#' Convert from NIST 'milliseconds-since-epoch' to a workable datetime via lubridate
 .ms_to_dt <- function(ms) {
   return(lubridate::as_datetime(floor(as.numeric(ms) / 1000)))
 }
 
+#' Convert from a lubridate-style datetime to a NIST 'milliseconds since epoch' representation
 .dt_to_ms <- function(dt) {
   return(as.integer(dt) * 1000)
 }

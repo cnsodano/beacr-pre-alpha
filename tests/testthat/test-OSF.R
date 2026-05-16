@@ -2,6 +2,13 @@
 
 describe("OSF preregistration-- common URL (GUID)", {
   it("acquires a file from a common URL using GUID, not api unique file ID", {
+    local_mocked_bindings(
+      .prompt_menu = function(choices, title) {
+        return(c(1L))
+      },
+      .package = 'beacr'
+    )
+
     # Corresponding to slides for a talk I gave at PYMS Summer Symposium 2025
     id = "https://osf.io/mbcw5/files/yahfc"
 

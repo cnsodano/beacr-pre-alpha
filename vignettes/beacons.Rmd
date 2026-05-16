@@ -1,8 +1,8 @@
 ---
-title: "beacons"
+title: "Beacons"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{beacons}
+  %\VignetteIndexEntry{Beacons}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -13,8 +13,6 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-
-## Beacons
 
 Currently, the only beacon supported is the [National Institute of Standards and Technology (NIST) Interoperable Randomness Beacon (v2.0)](https://csrc.nist.gov/projects/interoperable-randomness-beacons/beacon-20) developed by the Cryptographic Technology group at NIST, the same department that developed the [Secure Hash Algorithm (SHA)](https://en.wikipedia.org/wiki/Secure_Hash_Algorithms) and hosted the competition that resulted in the development of the [Advanced Encryption Standard (AES)](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard).
 

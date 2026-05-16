@@ -111,17 +111,17 @@ pulse$outputValue
 pulse <- beacon$get_latest_pulse(chain = 1)
 
 ## ------------------------------------------------
-## Method `NISTBeacon$get_pulse_index()`
+## Method `NISTBeacon$get_pulse_by_index()`
 ## ------------------------------------------------
 
 beacon <- NISTBeacon$new()
 
 # Fetch the 42nd pulse from chain 1
-pulse <- beacon$get_pulse_index(chain_index = 1, pulse_index = 42)
+pulse <- beacon$get_pulse_by_index(chain_index = 1, pulse_index = 42)
 pulse$outputValue
 
 ## ------------------------------------------------
-## Method `NISTBeacon$get_pulse_time()`
+## Method `NISTBeacon$get_pulse_by_timestamp()`
 ## ------------------------------------------------
 
 beacon <- NISTBeacon$new()
@@ -129,7 +129,7 @@ beacon <- NISTBeacon$new()
 # Fetch the pulse active at a specific moment
 #_RETURN issue here re: numeric, etc
 t <- as.numeric(as.POSIXct("2024-06-01 00:00:00", tz = "UTC"))
-pulse <- beacon$get_pulse_time(unix_time = t)
+pulse <- beacon$get_pulse_by_timestamp(unix_time = t)
 pulse$outputValue
 
 ## ------------------------------------------------
@@ -143,7 +143,7 @@ pulse <- beacon$get_latest_pulse()
 beacon$validate_pulse(pulse)
 
 # Validate a historical pulse
-old_pulse <- beacon$get_pulse_index(chain_index = 1, pulse_index = 100)
+old_pulse <- beacon$get_pulse_by_index(chain_index = 1, pulse_index = 100)
 beacon$validate_pulse(old_pulse)
 
 ## ------------------------------------------------
@@ -200,9 +200,9 @@ to \code{hash_length_bits / 8}.}
     \item \href{#method-NISTBeacon-initialize}{\code{NISTBeacon$new()}}
     \item \href{#method-NISTBeacon-get_latest_seed}{\code{NISTBeacon$get_latest_seed()}}
     \item \href{#method-NISTBeacon-get_latest_pulse}{\code{NISTBeacon$get_latest_pulse()}}
-    \item \href{#method-NISTBeacon-get_pulse_index}{\code{NISTBeacon$get_pulse_index()}}
-    \item \href{#method-NISTBeacon-get_pulse_time}{\code{NISTBeacon$get_pulse_time()}}
-    \item \href{#method-NISTBeacon-get_pulse_generic}{\code{NISTBeacon$get_pulse_generic()}}
+    \item \href{#method-NISTBeacon-get_pulse_by_index}{\code{NISTBeacon$get_pulse_by_index()}}
+    \item \href{#method-NISTBeacon-get_pulse_by_timestamp}{\code{NISTBeacon$get_pulse_by_timestamp()}}
+    \item \href{#method-NISTBeacon-get_pulse}{\code{NISTBeacon$get_pulse()}}
     \item \href{#method-NISTBeacon-validate_pulse}{\code{NISTBeacon$validate_pulse()}}
     \item \href{#method-NISTBeacon-hash}{\code{NISTBeacon$hash()}}
     \item \href{#method-NISTBeacon-verify_historical_seed}{\code{NISTBeacon$verify_historical_seed()}}
@@ -220,10 +220,7 @@ to \code{hash_length_bits / 8}.}
 }
 \if{html}{\out{<details open><summary>Inherited methods</summary>
 <ul>
-  <li><span class="pkg-link" data-pkg="beacr" data-topic="BeaconInterface" data-id="get_description"><a href='../../beacr/html/BeaconInterface.html#method-BeaconInterface-get_description'><code>BeaconInterface$get_description()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="beacr" data-topic="BeaconInterface" data-id="get_pulse_by_index"><a href='../../beacr/html/BeaconInterface.html#method-BeaconInterface-get_pulse_by_index'><code>BeaconInterface$get_pulse_by_index()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="beacr" data-topic="BeaconInterface" data-id="is_valid_hash"><a href='../../beacr/html/BeaconInterface.html#method-BeaconInterface-is_valid_hash'><code>BeaconInterface$is_valid_hash()</code></a></span></li>
-  <li><span class="pkg-link" data-pkg="beacr" data-topic="BeaconInterface" data-id="replay_file_exists"><a href='../../beacr/html/BeaconInterface.html#method-BeaconInterface-replay_file_exists'><code>BeaconInterface$replay_file_exists()</code></a></span></li>
   <li><span class="pkg-link" data-pkg="beacr" data-topic="BeaconInterface" data-id="resolve_hash_function"><a href='../../beacr/html/BeaconInterface.html#method-BeaconInterface-resolve_hash_function'><code>BeaconInterface$resolve_hash_function()</code></a></span></li>
 </ul>
 </details>}}
@@ -335,9 +332,9 @@ pulse <- beacon$get_latest_pulse(chain = 1)
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NISTBeacon-get_pulse_index"></a>}}
-\if{latex}{\out{\hypertarget{method-NISTBeacon-get_pulse_index}{}}}
-\subsection{\code{NISTBeacon$get_pulse_index()}}{
+\if{html}{\out{<a id="method-NISTBeacon-get_pulse_by_index"></a>}}
+\if{latex}{\out{\hypertarget{method-NISTBeacon-get_pulse_by_index}{}}}
+\subsection{\code{NISTBeacon$get_pulse_by_index()}}{
   Fetch a specific pulse by chain index and pulse index.
 
 Unlike \code{get_latest_pulse()}, this method requires both arguments
@@ -346,7 +343,7 @@ reproducible reference to a particular pulse (e.g. for auditing or
 seeding a simulation with a historically fixed value).
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{NISTBeacon$get_pulse_index(chain_index, pulse_index)}
+    \preformatted{NISTBeacon$get_pulse_by_index(chain_index, pulse_index)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -368,7 +365,7 @@ specified chain.}
     \preformatted{beacon <- NISTBeacon$new()
 
 # Fetch the 42nd pulse from chain 1
-pulse <- beacon$get_pulse_index(chain_index = 1, pulse_index = 42)
+pulse <- beacon$get_pulse_by_index(chain_index = 1, pulse_index = 42)
 pulse$outputValue
 }
     \if{html}{\out{</div>}}
@@ -376,9 +373,9 @@ pulse$outputValue
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NISTBeacon-get_pulse_time"></a>}}
-\if{latex}{\out{\hypertarget{method-NISTBeacon-get_pulse_time}{}}}
-\subsection{\code{NISTBeacon$get_pulse_time()}}{
+\if{html}{\out{<a id="method-NISTBeacon-get_pulse_by_timestamp"></a>}}
+\if{latex}{\out{\hypertarget{method-NISTBeacon-get_pulse_by_timestamp}{}}}
+\subsection{\code{NISTBeacon$get_pulse_by_timestamp()}}{
   Fetch the pulse that was current at a given Unix timestamp.
 
 Queries the NIST Beacon's time-based endpoint to retrieve whichever
@@ -387,7 +384,7 @@ reproducibly seeding a process from a wall-clock time.
 #_RETURN correct data type and mention str concat
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{NISTBeacon$get_pulse_time(unix_time)}
+    \preformatted{NISTBeacon$get_pulse_by_timestamp(unix_time)}
     \if{html}{\out{</div>}}
   }
   \subsection{Arguments}{
@@ -415,7 +412,7 @@ Convert them first with, for example,
 # Fetch the pulse active at a specific moment
 #_RETURN issue here re: numeric, etc
 t <- as.numeric(as.POSIXct("2024-06-01 00:00:00", tz = "UTC"))
-pulse <- beacon$get_pulse_time(unix_time = t)
+pulse <- beacon$get_pulse_by_timestamp(unix_time = t)
 pulse$outputValue
 }
     \if{html}{\out{</div>}}
@@ -423,16 +420,12 @@ pulse$outputValue
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-NISTBeacon-get_pulse_generic"></a>}}
-\if{latex}{\out{\hypertarget{method-NISTBeacon-get_pulse_generic}{}}}
-\subsection{\code{NISTBeacon$get_pulse_generic()}}{
+\if{html}{\out{<a id="method-NISTBeacon-get_pulse"></a>}}
+\if{latex}{\out{\hypertarget{method-NISTBeacon-get_pulse}{}}}
+\subsection{\code{NISTBeacon$get_pulse()}}{
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
-    \preformatted{NISTBeacon$get_pulse_generic(
-  chain_index = NULL,
-  pulse_index = NULL,
-  timestamp = NULL
-)}
+    \preformatted{NISTBeacon$get_pulse(chain_index = NULL, pulse_index = NULL, timestamp = NULL)}
     \if{html}{\out{</div>}}
   }
 }
@@ -463,7 +456,7 @@ been no tampering in between pulses
     \if{html}{\out{<div class="arguments">}}
     \describe{
       \item{\code{pulse}}{A named \code{list} as returned by \code{get_latest_pulse()},
-\code{get_pulse_index()}, or \code{get_pulse_time()}. Must contain at minimum
+\code{get_pulse_by_index()}, or \code{get_pulse_by_timestamp()}. Must contain at minimum
 the fields \verb{$chainIndex}, \verb{$pulseIndex}, \verb{$outputValue},
 \verb{$localRandomValue}, and \verb{$listValues}.}
     }
@@ -482,7 +475,7 @@ pulse <- beacon$get_latest_pulse()
 beacon$validate_pulse(pulse)
 
 # Validate a historical pulse
-old_pulse <- beacon$get_pulse_index(chain_index = 1, pulse_index = 100)
+old_pulse <- beacon$get_pulse_by_index(chain_index = 1, pulse_index = 100)
 beacon$validate_pulse(old_pulse)
 }
     \if{html}{\out{</div>}}
