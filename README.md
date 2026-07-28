@@ -1,6 +1,6 @@
 
 # beacr <img src="man/figures/logo.png" height="120" />
-Check out the full documentation at the `beacr` package website [here](https://cnsodano.github.io/beacr-pre-alpha/)
+Check out the full documentation at the `beacr` package website [here](https://cnsodano.github.io/beacr-alpha/)
 
 `beacr` (pronounced ‘beaker’
 ([/ˈbiːkɚ/](https://speecher.org/?text=beaker))) improves the
